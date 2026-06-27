@@ -38,8 +38,8 @@ public class AppAtzum extends Cena {
         PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
         if (po.abrirSeExistir()) {
 
-            int px = (int) po.getDouble("Janela", "PX");
-            int py = (int) po.getDouble("Janela", "PY");
+            int px = po.getInteiro("Janela", "PX");
+            int py = po.getInteiro("Janela", "PY");
 
             AzzalUnico.unico_posicionado("Mapa Atzum", 2300, 950, new AppAtzum(), px, py);
         } else {
@@ -273,13 +273,13 @@ public class AppAtzum extends Cena {
 
             if (getWindows().getMouse().isClicked()) {
 
-                double lx = getWindows().getLocationOnScreen().getX();
-                double ly = getWindows().getLocationOnScreen().getY();
+                int lx = (int) getWindows().getLocationOnScreen().getX();
+                int ly = (int) getWindows().getLocationOnScreen().getY();
 
                 PreferenciasOrganizadas po = new PreferenciasOrganizadas(AtzumCreator.LOGS_GET_ARQUIVO("atzum.dkg"));
                 po.abrirSeExistir();
-                po.setDouble("Janela", "PX", lx);
-                po.setDouble("Janela", "PY", ly);
+                po.setInteiro("Janela", "PX", lx);
+                po.setInteiro("Janela", "PY", ly);
                 po.salvar();
 
 

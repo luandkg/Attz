@@ -1,13 +1,26 @@
 package app;
 
+import algoritmos.AtividadesLL;
+import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
+import apps.app_atzum.app.AppAtzum;
+import apps.app_atzum.servicos.AtzumSociedades;
+import apps.app_atzum.servicos.ServicoExportarTronarko;
 import apps.app_azzal.VamosCalcular;
+import apps.app_biotzum.AnalisadorBiotzum;
 import apps.app_biotzum.AppBiotzum;
+import apps.app_campeonatum.AppCampeonatum;
+import apps.app_dajin.AppDajin;
+import apps.app_humanidade.AppHumanidade;
+import apps.app_tozterum.BotLuan;
+import apps.app_unbdoc.AppUnBDoc;
 import libs.azzal.AzzalUnico;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
 import libs.verkuz.VerkuzImplementador;
 import servicos.ASSETS;
+import testes.TesteZettaPastas;
+import testes.TesteZettaQuorum;
 
 public class App {
 
@@ -199,9 +212,9 @@ public class App {
 
         // TesteZettaQuorum.init_paginar();
 
-        //  TesteZettaPastas.init_pastas();
+          TesteZettaPastas.init_pastas();
 
-        // TesteZettaQuorum.init_replicacao();
+       //  TesteZettaQuorum.init_replicacao();
 
         //  TesteZettaTabela.ver_dados();
 
@@ -260,7 +273,7 @@ public class App {
 
         //AtzumProcessoCriativoEmTarefas.EXIBIR_EXECUTANDO();
 
-        // AtzumSociedades.VER_CIDADES();
+         //AtzumSociedades.VER_CIDADES();
 
 
         //  AztumTronarkoAnalises.VER();
@@ -280,7 +293,7 @@ public class App {
 
         //AppFuturistico.INIT();
 
-        // AppHumanidade.INIT();
+       //  AppHumanidade.INIT();
 
         // AtzumProcessoCriativoEmTarefas.INIT_BETA_SEQUENCIAL();
 
@@ -301,7 +314,7 @@ public class App {
 
         // JujutsuKaizen.init();
 
-        //  PessoaNomeadorDeAkkax.VISUALIZAR_AMOSTRA_PEQUENA();
+       //   PessoaNomeadorDeAkkax.VISUALIZAR_AMOSTRA_PEQUENA();
 
         //AppStrava.init();
 
@@ -349,13 +362,18 @@ public class App {
         //    AnalisadorTemporal.ver_cidade();
 
 
-        //BotLuan.ACADEMIA();
+        // BotLuan.ACADEMIA();
         //  BotLuan.VER_ATIVIDADES();
 
 
         //   ServicoFenomenoTectonico.INIT(7000);
 
-        AppBiotzum.INICIAR();
+        // AppBiotzum.INICIAR();
+        // AnalisadorBiotzum.INICIAR();
+
+      //  AppDajin.INICIAR();
+
+      //  AppUnBDoc.INICIAR();
 
     }
 

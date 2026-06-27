@@ -64,6 +64,13 @@ public class PreferenciasOrganizadas {
 
     }
 
+    public void setInteiro(String eSecao, String eAtributo, int eValor) {
+        eDKG.unicoObjeto("Preferencias").unicoObjeto(eSecao).identifique(eAtributo).setInteiro(eValor);
+    }
+    public int getInteiro(String eSecao, String eAtributo) {
+        int v = eDKG.unicoObjeto("Preferencias").unicoObjeto(eSecao).identifique(eAtributo).getInteiro(0);
+        return v;
+    }
 
     public void setDouble(String eSecao, String eAtributo, double eValor) {
         eDKG.unicoObjeto("Preferencias").unicoObjeto(eSecao).identifique(eAtributo).setDouble(eValor);

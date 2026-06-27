@@ -47,7 +47,7 @@ public class AOC_2024_DAY_01 extends  AOC_2024_DAY {
             int esquerda_valor = esquerda.get(a);
             int direita_valor = direita.get(a);
 
-            int distancia = Matematica.modulo(esquerda_valor-direita_valor);
+            int distancia = Matematica.MODULO(esquerda_valor-direita_valor);
 
             fmt.print("\t ++ esquerda({}) = {} --- direita({}) = {} :: {}",a,esquerda_valor,a,direita_valor,distancia);
 

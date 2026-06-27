@@ -2864,4 +2864,20 @@ public class Strings {
 
         return contagem;
     }
+
+
+    public static String ELIMINAR_LINHAS_VAZIAS(String conteudo){
+
+        Lista<String> linhas = Strings.DIVIDIR_LINHAS_TRIM(conteudo);
+
+        String montagem = "";
+
+        for (String linha : linhas) {
+            if (!linha.isEmpty()) {
+                montagem += linha + "\n";
+            }
+        }
+
+        return montagem;
+    }
 }

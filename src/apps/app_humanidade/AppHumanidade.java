@@ -140,7 +140,7 @@ public class AppHumanidade {
 
         Traduttor.PERIGOSO_CRIAR_DICIONARIO();
 
-        String texto_simples = "Isso é muito perigoso cara !";
+        String texto_simples = "O mundo é feito de escolhas individuais mundanas no mundo todo com varios mundos";
 
         fmt.print("Entrada : {}", texto_simples);
 

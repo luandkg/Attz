@@ -325,6 +325,11 @@ public class AutoFonte implements Fonte {
         escreva(x2, y, eTexto2);
     }
 
+    public void escreveLinha(int y, int x1, int x2, String eTexto1, int eTexto2) {
+        escreva(x1, y, eTexto1);
+        escreva(x2, y, eTexto2);
+    }
+
     public void escreva(int x, int y, int frase) {
         escreva(x,y,String.valueOf(frase));
     }

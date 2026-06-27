@@ -1,8 +1,6 @@
 package libs.arquivos.binario;
 
-import libs.luan.Igualavel;
-import libs.luan.Ordenavel;
-import libs.luan.Vetor;
+import libs.luan.*;
 
 import java.io.IOException;
 
@@ -75,5 +73,32 @@ public class Inteiro {
             }
 
         };
+    }
+
+    public static Hasher<Integer> HASH() {
+        return new Hasher<Integer>() {
+            @Override
+            public int hash(Integer eObjeto) {
+                return eObjeto.hashCode();
+            }
+        };
+    }
+
+
+    public static Igualdade<Integer> IGUALDADE() {
+        return new Igualdade<Integer>() {
+            @Override
+            public boolean isIgual(Integer v1, Integer v2) {
+                return v1.equals(v2);
+            }
+        };
+    }
+
+    public static int MODULO(int valor){
+        if(valor<0){
+            return valor*(-1);
+        }else{
+            return valor;
+        }
     }
 }

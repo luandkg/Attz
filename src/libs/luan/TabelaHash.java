@@ -39,6 +39,13 @@ public class TabelaHash<T1, T2> implements Iterable<LinhaHash<T1, T2>> {
         return mDados.get(mHasher.hash(eChave)).get(eChave);
     }
 
+    public T2 getOuPadrao(T1 eChave,T2 padrao) {
+        if(!existe(eChave)){
+            set(eChave,padrao);
+        }
+        return mDados.get(mHasher.hash(eChave)).get(eChave);
+    }
+
     public boolean remover(T1 eChave) {
         return mDados.get(mHasher.hash(eChave)).remover(eChave);
     }

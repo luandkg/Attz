@@ -77,4 +77,8 @@ public class TextoDocumento {
     public void salvar(String arquivo) {
         Texto.arquivo_escrever(arquivo, this.toDocumento());
     }
+
+    public void trim(){
+     mTexto=mTexto.trim();
+    }
 }

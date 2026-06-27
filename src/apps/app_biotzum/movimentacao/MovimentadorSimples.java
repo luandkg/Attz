@@ -1,6 +1,7 @@
 package apps.app_biotzum.movimentacao;
 
 import apps.app_biotzum.Organismo;
+import libs.arquivos.binario.Inteiro;
 import libs.luan.Aleatorio;
 import libs.luan.Lista;
 
@@ -53,7 +54,12 @@ public class MovimentadorSimples implements Movimentador {
         mSinalYMaximo = Aleatorio.aleatorio_entre(20, 40);
     }
 
-    public void andar(Lista<Organismo> outros) {
+    public Movimento andar(Lista<Organismo> outros) {
+
+        int ret_x=0;
+        int ret_y=0;
+        int ret_gasto=0;
+        int ret_passos=0;
 
         int mover_x = 0;
         int mover_y = 0;
@@ -135,7 +141,15 @@ public class MovimentadorSimples implements Movimentador {
         if (mOrganismo.getEnergia() >= gasto_de_movimentacao) {
             if (mOrganismo.isLocalValido(px, py, outros)) {
                 mOrganismo.andarDireto(mover_x, mover_y, px, py);
+
+                ret_x=mover_x;
+                ret_y=mover_y;
+                ret_gasto=gasto_de_movimentacao;
+                ret_passos= Inteiro.MODULO(mover_x)+Inteiro.MODULO(mover_y);
+
             }
         }
+
+        return new Movimento(ret_x,ret_y,ret_gasto,ret_passos);
     }
 }

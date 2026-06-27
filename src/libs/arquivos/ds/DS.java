@@ -8,6 +8,7 @@ import libs.arquivos.binario.Inteiro;
 import libs.entt.Entidade;
 import libs.luan.Lista;
 import libs.luan.Opcional;
+import libs.luan.Strings;
 import libs.luan.fmt;
 
 import java.nio.charset.StandardCharsets;
@@ -1014,6 +1015,33 @@ public class DS {
 
         for (DSItem item : itens) {
             fmt.print(linha_fmt, item.getNome(), item.getInicio(), item.getInicio() + item.getTamanho(), fmt.formatar_tamanho_precisao_dupla(item.getTamanho()),item.getTexto());
+        }
+
+        fmt.print("{}",fmt.repetir("-",tamanho_nome+35+16+32));
+
+    }
+
+    public static void DUMP_ITENS_CONTEUDO_LINEARIZADO(Lista<DSItem> itens){
+
+        int tamanho_nome = 0;
+
+        for (DSItem item : itens) {
+            if (item.getNome().length() > tamanho_nome) {
+                tamanho_nome = item.getNome().length();
+            }
+        }
+
+        tamanho_nome+=15;
+
+        String cabecalho_fmt = "| {dir" + tamanho_nome + "} | {dir10} | {dir10} | {dir18} | {dir30}|";
+        String linha_fmt = "| {dir" + tamanho_nome + "} | {dir10} | {dir10} | {esq18} | {dir30}|";
+
+        fmt.print("{}",fmt.repetir("-",tamanho_nome+35+16+32));
+        fmt.print(cabecalho_fmt,"Nome","Início","Fim","Tamanho","Conteudo");
+        fmt.print("{}",fmt.repetir("-",tamanho_nome+35+16+32));
+
+        for (DSItem item : itens) {
+            fmt.print(linha_fmt, item.getNome(), item.getInicio(), item.getInicio() + item.getTamanho(), fmt.formatar_tamanho_precisao_dupla(item.getTamanho()), Strings.LINEARIZAR(item.getTexto()));
         }
 
         fmt.print("{}",fmt.repetir("-",tamanho_nome+35+16+32));

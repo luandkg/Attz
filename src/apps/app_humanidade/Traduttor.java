@@ -120,6 +120,9 @@ public class Traduttor {
                 i += 1;
             }
 
+           // fmt.print(">> Texto   :: {}",texto_traduzido);
+          //  fmt.print(">> Palavra :: {}",palavra);
+
             if (!palavra.isEmpty()) {
 
                 Entidade e_palavra = ENTT.GET_SEMPRE(idiomas_dicionario, "Palavra", palavra);

@@ -1,6 +1,8 @@
 package libs.luan;
 
 import libs.arquivos.binario.Arquivador;
+import libs.fs.Arquivo;
+import libs.fs.PastaFS;
 
 import java.io.File;
 import java.io.IOException;
@@ -167,5 +169,19 @@ public class FS {
 
     public static void COPIAR(String origem,String destino){
         Arquivador.CONSTRUIR_ARQUIVO(destino,Arquivador.GET_BYTES(origem));
+    }
+
+    public static void REMOVER_TUDO_INTERNAMENTE(String local){
+
+        for (Arquivo arquivo_item : new PastaFS(local).getArquivos()) {
+            FS.removerArquivo(arquivo_item.getLocal());
+        }
+
+        for (PastaFS pasta_item : new PastaFS(local).getPastas()) {
+            REMOVER_TUDO_INTERNAMENTE(pasta_item.getLocal());
+            FS.removerArquivo(pasta_item.getLocal());
+        }
+
+
     }
 }

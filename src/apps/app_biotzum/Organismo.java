@@ -2,6 +2,7 @@ package apps.app_biotzum;
 
 import apps.app_biotzum.movimentacao.Movimentador;
 import apps.app_biotzum.movimentacao.MovimentadorSimples;
+import apps.app_biotzum.movimentacao.Movimento;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.azzal.utilitarios.Cronometro;
@@ -12,27 +13,62 @@ import libs.luan.fmt;
 
 public class Organismo {
 
-    final int ESTAGIO_NORMAL = 0;
-    final int ESTAGIO_DESCANSANDO = 1;
+    public static final int ESTAGIO_NORMAL = 0;
+    public static final int ESTAGIO_DESCANSANDO = 1;
+    public static final int ESTAGIO_DORMINDO = 2;
+
+    private static int ID_ORGANIZADOR = 0;
+
+    private int mID;
 
     private int mX;
     private int mY;
 
     private Cores mCores = new Cores();
-    private int mEnergia = 500;
+
+    private int mEnergia = 5000;
     private int mEstagio = 0;
     private int mDescansando = 0;
     private int mDeveDescansar = 0;
+
+    private int mCansaco = 0;
+    private int mCansacoMaximo = 1000;
+
+    private int mEnergiaBasal = 150;
+
+    private int mTempo = 0;
+    private int mTempoAcordado = 0;
+    private int mTempoAcordadoMaximo = 0;
+
+    private int mTempoDormindo = 0;
+    private int mTempoDormindoMaximo = 0;
+
+    private int mPassos = 0;
+
+    private int mBatimentos = 0;
 
     private Cronometro mCron;
     private Movimentador mMovimentador;
 
     public Organismo(int x, int y) {
+
+        mID = ID_ORGANIZADOR;
+        ID_ORGANIZADOR += 1;
+
+
         mX = x;
         mY = y;
         mEstagio = ESTAGIO_NORMAL;
         mCron = new Cronometro(500);
         mMovimentador = new MovimentadorSimples(this);
+
+        mBatimentos = Aleatorio.aleatorio_entre(50, 80);
+        mTempoAcordado = 0;
+        mTempoAcordadoMaximo = Aleatorio.aleatorio_entre(1500, 2000);
+    }
+
+    public int getID() {
+        return mID;
     }
 
     public int getX() {
@@ -47,8 +83,48 @@ public class Organismo {
         return mEnergia;
     }
 
+    public int getCansaco() {
+        return mCansaco;
+    }
+
+    public int getDescansando() {
+        return mDescansando;
+    }
+
+    public int getDescansandoLimite() {
+        return mDeveDescansar;
+    }
+
+    public int getEstagio() {
+        return mEstagio;
+    }
+
+    public int getPassos() {
+        return mPassos;
+    }
+
+    public int getTempo() {
+        return mTempo;
+    }
+
+    public int getBatimentos() {
+        return mBatimentos;
+    }
+
+    public String getEstagioTexto() {
+        String ret = "";
+        if (mEstagio == ESTAGIO_NORMAL) {
+            ret = "Normal";
+        } else if (mEstagio == ESTAGIO_DESCANSANDO) {
+            ret = "Descansando";
+        } else if (mEstagio == ESTAGIO_DORMINDO) {
+            ret = "Dormindo";
+        }
+        return ret;
+    }
+
     public int calcularGastoDeMovimento(int mover_x, int mover_y) {
-        int gasto_de_movimentacao = (Matematica.modulo(mover_x) * 3) + (Matematica.modulo(mover_y) * 5);
+        int gasto_de_movimentacao = (Matematica.MODULO(mover_x) * 3) + (Matematica.MODULO(mover_y) * 5);
         return gasto_de_movimentacao;
     }
 
@@ -62,8 +138,8 @@ public class Organismo {
         }
     }
 
-    public void andar(Lista<Organismo> outros) {
-        mMovimentador.andar(outros);
+    public Movimento andar(Lista<Organismo> outros) {
+        return mMovimentador.andar(outros);
     }
 
     public boolean isLocalValido(int px, int py, Lista<Organismo> outros) {
@@ -91,6 +167,10 @@ public class Organismo {
         return ret;
     }
 
+    public void zerarPassos() {
+        mPassos = 0;
+    }
+
     public void atualizar(Lista<Organismo> outros, Lista<Comida> comidas) {
 
         boolean aguardou = false;
@@ -101,31 +181,88 @@ public class Organismo {
             aguardou = true;
         }
 
+        if (!aguardou) {
+            //   return;
+        }
+
+        mTempo += 1;
+        mTempoAcordado += 1;
+
+        if (mTempoAcordado > mTempoAcordadoMaximo) {
+            mEstagio = ESTAGIO_DORMINDO;
+            mTempoDormindoMaximo = Aleatorio.aleatorio_entre(300, 500);
+            mTempoDormindo = 0;
+            mTempoAcordado = 0;
+        }
+
+
         if (mEstagio == ESTAGIO_NORMAL) {
-            andar(outros);
+            Movimento movimento = andar(outros);
+
+            int passos = movimento.passos();
+
+            if (passos > 0) {
+                mBatimentos += Aleatorio.aleatorio_entre(0, 3);
+            } else {
+                if (mBatimentos > 50) {
+                    mBatimentos -= Aleatorio.aleatorio_entre(0, 3);
+                }
+            }
+
+            mPassos += passos;
 
             for (Comida comida : comidas) {
                 if (comida.getX() == mX && comida.getY() == mY) {
                     comidas.remover(comida);
-                    mEnergia += 10_000;
+                    mEnergia += 5000;
                     fmt.print("\t -->> Comeuuuuuuuu");
                     break;
                 }
             }
 
-            if (mEnergia < 50) {
+            if (mEnergia < mEnergiaBasal) {
                 mEstagio = ESTAGIO_DESCANSANDO;
                 mCron.zerar();
                 mDescansando = 0;
-                mDeveDescansar = Aleatorio.aleatorio_entre(5, 10);
+                mDeveDescansar = Aleatorio.aleatorio_entre(15, 30);
+                return;
+            }
+
+            if (mCansaco > mCansacoMaximo) {
+                mEstagio = ESTAGIO_DESCANSANDO;
+                mCron.zerar();
+                mDescansando = 0;
+                mDeveDescansar = Aleatorio.aleatorio_entre(15, 30);
             }
         } else if (mEstagio == ESTAGIO_DESCANSANDO) {
+            mPassos = 0;
             if (aguardou) {
                 mDescansando += 1;
-                if (mDescansando >= mDeveDescansar) {
-                    mEnergia = 500;
-                    mEstagio = ESTAGIO_NORMAL;
+                if (mCansaco > 0) {
+                    mCansaco -= 1;
                 }
+                if (mDescansando >= mDeveDescansar) {
+                    mEstagio = ESTAGIO_NORMAL;
+                    mEnergia += 5000;
+                    mDeveDescansar = 0;
+                }
+            }
+
+            if (mBatimentos > 50) {
+                mBatimentos -= Aleatorio.aleatorio_entre(2, 8);
+            }
+
+        } else if (mEstagio == ESTAGIO_DORMINDO) {
+            mTempoDormindo += 1;
+
+            if (mBatimentos > 30) {
+                mBatimentos -= Aleatorio.aleatorio_entre(0, 3);
+            }
+
+            if (mTempoDormindo > mTempoDormindoMaximo) {
+                mEstagio = ESTAGIO_NORMAL;
+                mTempoDormindo = 0;
+                mTempoAcordadoMaximo = Aleatorio.aleatorio_entre(1500, 2000);
             }
         }
     }

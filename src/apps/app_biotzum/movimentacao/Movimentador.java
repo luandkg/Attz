@@ -4,5 +4,5 @@ import apps.app_biotzum.Organismo;
 import libs.luan.Lista;
 
 public interface Movimentador {
-    void andar(Lista<Organismo> outros);
+    Movimento andar(Lista<Organismo> outros);
 }

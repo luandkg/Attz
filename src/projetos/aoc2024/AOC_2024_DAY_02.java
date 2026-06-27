@@ -127,7 +127,7 @@ public class AOC_2024_DAY_02 extends AOC_2024_DAY {
             if (!iniciado) {
                 iniciado = true;
             } else {
-                int diferenca = Matematica.modulo(valor_anterior - valor_corrente);
+                int diferenca = Matematica.MODULO(valor_anterior - valor_corrente);
                 if (diferenca >= 1 && diferenca <= 3) {
                     if (!regra_definida) {
                         regra_definida = true;

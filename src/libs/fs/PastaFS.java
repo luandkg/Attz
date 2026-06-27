@@ -3,6 +3,9 @@ package libs.fs;
 import libs.luan.Lista;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 
 public class PastaFS {
@@ -248,6 +251,15 @@ public class PastaFS {
             arquivos.adicionar(nome);
         }
         return arquivos;
+    }
+
+
+    public void criarPasta(String nome){
+        try {
+            Files.createDirectories(Paths.get(this.getPasta(nome)));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

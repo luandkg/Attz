@@ -19,6 +19,7 @@ public interface Fonte {
     int getAltura();
 
     void escreveLinha(int y, int x1, int x2, String eTexto1, String eTexto2);
+    void escreveLinha(int y, int x1, int x2, String eTexto1, int eTexto2);
 
     void escrevaCentralizado(int x, int y, String frase);
 
