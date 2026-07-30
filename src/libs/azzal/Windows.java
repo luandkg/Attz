@@ -76,7 +76,7 @@ public class Windows extends JFrame implements Runnable {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
-this.setLocation(px,py);
+        this.setLocation(px,py);
 
         if (mImagem == null) {
             mImagem = new BufferedImage(this.getLargura(), this.getAltura(), BufferedImage.TYPE_INT_ARGB);

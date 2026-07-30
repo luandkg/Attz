@@ -1,11 +1,13 @@
 package app;
 
 import algoritmos.AtividadesLL;
+import apps.app_arquivos.ArquivosServicos;
 import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
 import apps.app_atzum.app.AppAtzum;
 import apps.app_atzum.servicos.AtzumSociedades;
 import apps.app_atzum.servicos.ServicoExportarTronarko;
+import apps.app_audio.AppAudio;
 import apps.app_azzal.VamosCalcular;
 import apps.app_biotzum.AnalisadorBiotzum;
 import apps.app_biotzum.AppBiotzum;
@@ -66,7 +68,8 @@ public class App {
         // AzzalUnico.unico("Linha Do Tempo", 900, 1000, new AppLinhaDoTempo());
 
         // AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new Alpha());
-        // AzzalUnico.unico("apps.AppAudio", 700, 1020, new AppAudio());
+        //  ArquivosServicos.audio();
+      //   AzzalUnico.unico("apps.AppAudio", 700, 1020, new AppAudio());
 
         // AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new C1());
         // AzzalUnico.unico("apps.AppAzzal", 1500, 1020, new CenaBanco());
@@ -212,7 +215,7 @@ public class App {
 
         // TesteZettaQuorum.init_paginar();
 
-          TesteZettaPastas.init_pastas();
+//          TesteZettaPastas.init_pastas();
 
        //  TesteZettaQuorum.init_replicacao();
 
