@@ -1,9 +1,11 @@
 package app;
 
 import algoritmos.AtividadesLL;
+import apps.app.AppStrava;
 import apps.app_arquivos.ArquivosServicos;
 import apps.app_attuz.Sociedade.PessoaNomeadorDeAkkax;
 import apps.app_atzum.AtzumProcessoCriativoEmTarefas;
+import apps.app_atzum.analisadores.AnalisadorTemporal;
 import apps.app_atzum.app.AppAtzum;
 import apps.app_atzum.servicos.AtzumSociedades;
 import apps.app_atzum.servicos.ServicoExportarTronarko;
@@ -21,6 +23,7 @@ import libs.luan.fmt;
 import libs.tronarko.Tronarko;
 import libs.verkuz.VerkuzImplementador;
 import servicos.ASSETS;
+import testes.TesteTronarkum;
 import testes.TesteZettaPastas;
 import testes.TesteZettaQuorum;
 
@@ -296,7 +299,7 @@ public class App {
 
         //AppFuturistico.INIT();
 
-       //  AppHumanidade.INIT();
+         // AppHumanidade.INIT();
 
         // AtzumProcessoCriativoEmTarefas.INIT_BETA_SEQUENCIAL();
 
@@ -319,7 +322,7 @@ public class App {
 
        //   PessoaNomeadorDeAkkax.VISUALIZAR_AMOSTRA_PEQUENA();
 
-        //AppStrava.init();
+       // AppStrava.init();
 
         // Teste.init();
 
@@ -342,13 +345,13 @@ public class App {
         //ServicoTectonico.VULCOES_NOMEAR();
 
 
-        // AnalisadorTemporal.analisar();
+       //  AnalisadorTemporal.analisar();
 
 
         fmt.print("{}", Tronarko.getTronAgora().getTextoComInfos());
         fmt.print("{}", Tronarko.getHazde().getTextoComInfos());
 
-        // TesteTronarkum.TEST();
+         TesteTronarkum.TEST();
 
 
         // Lista<Entidade> dados_a =TesteTronarkum.MAPEAR_SIGNOS(Tronarko.getTozte());
