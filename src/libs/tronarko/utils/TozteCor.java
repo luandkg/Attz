@@ -127,4 +127,17 @@ public class TozteCor {
     }
 
 
+    public boolean isDentro(Tozte referencia){
+        boolean ret = false;
+
+        for(Tozte t : mToztes){
+            if(t.isIgual(referencia)){
+                ret=true;
+                break;
+            }
+        }
+
+        return ret;
+    }
+
 }
