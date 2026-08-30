@@ -12,6 +12,7 @@ import libs.azzal.utilitarios.Cor;
 import libs.documentar.AutoInt;
 import libs.luan.Lista;
 import libs.luan.Tempo;
+import libs.luan.fmt;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
@@ -82,6 +83,7 @@ public class AppTronarko extends Cena {
 
     private TronarkoFalsum mFalsum;
 
+    private int mAnimacao =0;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -103,7 +105,9 @@ public class AppTronarko extends Cena {
 
         mClicavel = new Clicavel();
 
-        BTN_HOJE = mClicavel.criarBotaoCorDesenharAcima(new BotaoCor(1155 - 25, 930, 50, 50, new Cor(200, 120, 0)));
+        int botaoPosY = 900;
+
+        BTN_HOJE = mClicavel.criarBotaoCorDesenharAcima(new BotaoCor(1155 - 25, botaoPosY, 50, 50, new Cor(200, 120, 0)));
         BTN_HOJE.setVariacao(new Cor(200, 120, 0), new Cor(255, 120, 0));
 
         BTN_HOJE.setAcao(new Acao() {
@@ -113,7 +117,7 @@ public class AppTronarko extends Cena {
             }
         });
 
-        BTN_MENOS = mClicavel.criarBotaoCor(new BotaoCor(1100, 900, 50, 100, new Cor(50, 90, 156)));
+        BTN_MENOS = mClicavel.criarBotaoCor(new BotaoCor(1100, botaoPosY - 30, 50, 100, new Cor(50, 90, 156)));
         BTN_MENOS.setVariacao(new Cor(50, 90, 156), new Cor(100, 90, 156));
 
         BTN_MENOS.setAcao(new Acao() {
@@ -123,7 +127,7 @@ public class AppTronarko extends Cena {
             }
         });
 
-        BTN_MAIS = mClicavel.criarBotaoCor(new BotaoCor(1155, 900, 50, 100, new Cor(26, 188, 156)));
+        BTN_MAIS = mClicavel.criarBotaoCor(new BotaoCor(1155, botaoPosY - 30, 50, 100, new Cor(26, 188, 156)));
         BTN_MAIS.setVariacao(new Cor(26, 188, 156), new Cor(100, 188, 156));
 
         BTN_MAIS.setAcao(new Acao() {
@@ -156,7 +160,7 @@ public class AppTronarko extends Cena {
         // ObservarCeu.mostrar(new Tozte(1, 1, 7000),"ILUMINACAO", Fases.CHEIA, Fases.CHEIA, Fases.CHEIA);
 
         AutoInt px = new AutoInt(50);
-        AutoInt py = new AutoInt(50);
+        AutoInt py = new AutoInt(10);
 
 
         mHiperarkoWidget_01 = new HiperarkoWidget(px.mais_get(0), py.get(), 1, mHoje.getTronarko());
@@ -255,6 +259,12 @@ public class AppTronarko extends Cena {
 
         //  mRhoBenchmark.set("libs.Tronarko.update()", inicio, fim);
 
+        mAnimacao+=1;
+
+        if(mAnimacao>=50){
+            mAnimacao=0;
+        }
+
     }
 
     @Override
@@ -330,10 +340,14 @@ public class AppTronarko extends Cena {
 
         for (TozteCor tozte_evento : eventos) {
 
-            Marcador.marcar(r, AVISO_X, AVISO_Y, 20, 5,tozte_evento.getCor(), mCores.getBranco());
+            Marcador.marcar(r, AVISO_X, AVISO_Y, 20, 5, tozte_evento.getCor(), mCores.getBranco());
 
             mTextoPequeno.escreva(AVISO_X + 30, AVISO_Y, tozte_evento.getNome());
-            mTextoPequeno.escreva(AVISO_X + 250, AVISO_Y, " -->> " + tozte_evento.getComplemento());
+            mTextoPequeno.escreva(AVISO_X + 280, AVISO_Y, " -->> " + tozte_evento.getComplemento());
+
+            if (tozte_evento.isDentro(mHoje) && mAnimacao>=20 && mAnimacao<=50) {
+                r.drawRect_Pintado(AVISO_X+7, AVISO_Y+7, 6, 6, tozte_evento.getCor());
+            }
 
             AVISO_Y += 30;
 

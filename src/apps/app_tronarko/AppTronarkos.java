@@ -5,7 +5,7 @@ import libs.azzal.AzzalUnico;
 public class AppTronarkos {
 
     public static void TRONARKO(){
-        AzzalUnico.unico("Tronarko", 1550, 1100, new apps.app_tronarko.AppTronarko());
+        AzzalUnico.unico("Tronarko", 1550, 1000, new apps.app_tronarko.AppTronarko());
     }
 
     public static void ALARME(){
