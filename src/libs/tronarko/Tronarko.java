@@ -314,4 +314,8 @@ public class Tronarko {
         return megarkos;
     }
 
+    public static int HIZARKO_TAMANHO(){
+        return 125;
+    }
+
 }

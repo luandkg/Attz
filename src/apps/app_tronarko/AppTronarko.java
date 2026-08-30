@@ -38,6 +38,7 @@ public class AppTronarko extends Cena {
     private FonteDupla mTextoPequeno;
 
     private Fonte mTextoPequenoBranco;
+    private Fonte TextoGrande_Sel;
 
     private Eventum mEventum;
     private Ceu mCeu;
@@ -82,7 +83,7 @@ public class AppTronarko extends Cena {
 
     private TronarkoFalsum mFalsum;
 
-    private int mAnimacao =0;
+    private int mAnimacao = 0;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -95,6 +96,8 @@ public class AppTronarko extends Cena {
         mTextoPequeno = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 11);
         mTextoPequenoBranco = new FonteRunTime(mCores.getBranco(), 11);
 
+        TextoGrande_Sel = new FonteRunTime(mCores.getVermelho(), 20);
+
         mEventum = new Eventum();
         mCeu = new Ceu();
 
@@ -106,7 +109,9 @@ public class AppTronarko extends Cena {
 
         int botaoPosY = 900;
 
-        BTN_HOJE = mClicavel.criarBotaoCorDesenharAcima(new BotaoCor(1155 - 25, botaoPosY, 50, 50, new Cor(200, 120, 0)));
+        int maisX = 300;
+
+        BTN_HOJE = mClicavel.criarBotaoCorDesenharAcima(new BotaoCor(1155 - 25 + maisX, botaoPosY, 50, 50, new Cor(200, 120, 0)));
         BTN_HOJE.setVariacao(new Cor(200, 120, 0), new Cor(255, 120, 0));
 
         BTN_HOJE.setAcao(new Acao() {
@@ -116,7 +121,7 @@ public class AppTronarko extends Cena {
             }
         });
 
-        BTN_MENOS = mClicavel.criarBotaoCor(new BotaoCor(1100, botaoPosY - 30, 50, 100, new Cor(50, 90, 156)));
+        BTN_MENOS = mClicavel.criarBotaoCor(new BotaoCor(1100 + maisX, botaoPosY - 30, 50, 100, new Cor(50, 90, 156)));
         BTN_MENOS.setVariacao(new Cor(50, 90, 156), new Cor(100, 90, 156));
 
         BTN_MENOS.setAcao(new Acao() {
@@ -126,7 +131,7 @@ public class AppTronarko extends Cena {
             }
         });
 
-        BTN_MAIS = mClicavel.criarBotaoCor(new BotaoCor(1155, botaoPosY - 30, 50, 100, new Cor(26, 188, 156)));
+        BTN_MAIS = mClicavel.criarBotaoCor(new BotaoCor(1155 + maisX, botaoPosY - 30, 50, 100, new Cor(26, 188, 156)));
         BTN_MAIS.setVariacao(new Cor(26, 188, 156), new Cor(100, 188, 156));
 
         BTN_MAIS.setAcao(new Acao() {
@@ -174,7 +179,7 @@ public class AppTronarko extends Cena {
         mHiperarkoWidget_09 = new HiperarkoWidget(px.re_init(50), py.mais_get(200), 9, mHoje.getTronarko());
         mHiperarkoWidget_10 = new HiperarkoWidget(px.mais_get(450), py.get(), 10, mHoje.getTronarko());
 
-        mHiperarkoWidgetSelecionado = new HiperarkoWidget(950, 280, 1, mHoje.getTronarko());
+        mHiperarkoWidgetSelecionado = new HiperarkoWidget(950, 140, 1, mHoje.getTronarko());
         mHiperarkoWidgetSelecionado.setTamanhoCaixaTitulo(20);
 
         mRhoBenchmark = new RhoBenchmark("res/libs.RhoBenchmark.dkg", 0, 400);
@@ -258,10 +263,10 @@ public class AppTronarko extends Cena {
 
         //  mRhoBenchmark.set("libs.Tronarko.update()", inicio, fim);
 
-        mAnimacao+=1;
+        mAnimacao += 1;
 
-        if(mAnimacao>=50){
-            mAnimacao=0;
+        if (mAnimacao >= 50) {
+            mAnimacao = 0;
         }
 
     }
@@ -279,7 +284,7 @@ public class AppTronarko extends Cena {
         mTextoPequeno.setRenderizador(r);
         mTextoGrande.setRenderizador(r);
         mTextoPequenoBranco.setRenderizador(r);
-
+        TextoGrande_Sel.setRenderizador(r);
 
         mTextoPequenoBranco.escreva(BTN_MENOS.getX() + 5, BTN_MENOS.getY() + 40, "-1");
         mTextoPequenoBranco.escreva(BTN_MAIS.getX() + 25, BTN_MAIS.getY() + 40, "+1");
@@ -302,26 +307,25 @@ public class AppTronarko extends Cena {
         mHiperarkoWidget_09.draw_hiperarko_com_infos(r, mHoje, mEventos);
         mHiperarkoWidget_10.draw_hiperarko_com_infos(r, mHoje, mEventos);
 
+        int infoPosY = 35;
 
-        mTextoPequeno.escreva(950, 100 + 0, " -->> Hoje : " + mHoje.getTextoZerado());
-        mTextoPequeno.escreva(950, 100 + 50, " -->> Agora : " + mAgora.getTextoZerado());
-        mTextoPequeno.escreva(950, 100 + 100, " -->> Falta : " + mAgora.getTotalEttonsParaAcabarFormatado());
-
-
-        mTextoPequeno.escreva(1230, 100 + 100, "Estação : " + mHoje.getHizarko().toString() + " ( " + mHoje.Hizarko_Duracao() + " ) ");
-        mTextoPequeno.escreva(1230, 100 + 130, "Fluxo : " + hizarko_fluxo(mHoje.Hizarko_Duracao()));
+        mTextoPequeno.escreva(950, infoPosY, " -->> Hoje : " + mHoje.getTextoZerado());
+        mTextoPequeno.escreva(950, infoPosY + 25, " -->> Agora : " + mAgora.getTextoZerado());
+        mTextoPequeno.escreva(950, infoPosY + 50, " -->> Falta : " + mAgora.getTotalEttonsParaAcabarFormatado());
 
 
+        int POS_Y_SATELITES = infoPosY;
         int POS_X_SATELITES = 950 + 300;
 
 
-        r.drawImagemComAlfa(POS_X_SATELITES, 100, mSatelatizadorAllux.get(mCeu.getAllux().getFaseIntTozte(mHoje)));
-        r.drawImagemComAlfa(POS_X_SATELITES + 60, 100, mSatelatizadorEttos.get(mCeu.getEttos().getFaseIntTozte(mHoje)));
-        r.drawImagemComAlfa(POS_X_SATELITES + 120, 100, mSatelatizadorUnnos.get(mCeu.getUnnos().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(POS_X_SATELITES, POS_Y_SATELITES, mSatelatizadorAllux.get(mCeu.getAllux().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(POS_X_SATELITES + 60, POS_Y_SATELITES, mSatelatizadorEttos.get(mCeu.getEttos().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(POS_X_SATELITES + 120, POS_Y_SATELITES, mSatelatizadorUnnos.get(mCeu.getUnnos().getFaseIntTozte(mHoje)));
 
-        mTextoPequeno.escreva(POS_X_SATELITES - 10, 100 + 40, mCeu.getAllux().getNomeCapitalizado());
-        mTextoPequeno.escreva(POS_X_SATELITES + 60 - 10, 100 + 40, mCeu.getEttos().getNomeCapitalizado());
-        mTextoPequeno.escreva(POS_X_SATELITES + 120 - 10, 100 + 40, mCeu.getUnnos().getNomeCapitalizado());
+        mTextoPequeno.escreva(POS_X_SATELITES - 10, POS_Y_SATELITES + 40, mCeu.getAllux().getNomeCapitalizado());
+        mTextoPequeno.escreva(POS_X_SATELITES + 60 - 10, POS_Y_SATELITES + 40, mCeu.getEttos().getNomeCapitalizado());
+        mTextoPequeno.escreva(POS_X_SATELITES + 120 - 10, POS_Y_SATELITES + 40, mCeu.getUnnos().getNomeCapitalizado());
+
 
         // mTextoPequeno.escreva(pAllus - 10, ePosY + 80, mCeu.getAllux().getFaseIntTozte(mHoje) + " :: " + mCeu.getAllux().getFase(mHoje).toString());
 
@@ -329,11 +333,11 @@ public class AppTronarko extends Cena {
         mHiperarkoWidgetSelecionado.draw_hiperarko_com_infos(r, mHoje, mEventos);
 
 
-        BarraDeProgresso.tri_progresso(r, 950, 450, 380, 50, mHoje.getSuperarko(), 25, 40);
+        BarraDeProgresso.tri_progresso(r, 950, 320, 380, 50, mHoje.getSuperarko(), 25, 40);
 
 
         int AVISO_X = 950;
-        int AVISO_Y = 500;
+        int AVISO_Y = 370;
 
         Lista<EventoLegenda> eventos = mEventum.getLegenda(mEventos);
 
@@ -344,8 +348,8 @@ public class AppTronarko extends Cena {
             mTextoPequeno.escreva(AVISO_X + 30, AVISO_Y, evento.getNome());
             mTextoPequeno.escreva(AVISO_X + 280, AVISO_Y, " -->> " + evento.getComplemento());
 
-            if (evento.isDentro(mHoje) && mAnimacao>=20 && mAnimacao<=50) {
-                r.drawRect_Pintado(AVISO_X+7, AVISO_Y+7, 6, 6, evento.getCor());
+            if (evento.isDentro(mHoje) && mAnimacao >= 20 && mAnimacao <= 50) {
+                r.drawRect_Pintado(AVISO_X + 7, AVISO_Y + 7, 6, 6, evento.getCor());
             }
 
             AVISO_Y += 30;
@@ -376,13 +380,25 @@ public class AppTronarko extends Cena {
         }
 
 
-        r.drawImagemComAlfa(1380, 350, mTronarkoImagemSignos.getSigno(mHoje.getSigno()));
-        mTextoPequeno.escrevaCentralizado(1380 + 32 - 2, 420, mHoje.getSigno().toString());
+        r.drawImagemComAlfa(1380, mHiperarkoWidgetSelecionado.getPosY() + 70, mTronarkoImagemSignos.getSigno(mHoje.getSigno()));
+        mTextoPequeno.escrevaCentralizado(1380 + 32 - 2, mHiperarkoWidgetSelecionado.getPosY() + 150, mHoje.getSigno().toString());
 
         long fim = mRhoBenchmark.get();
 
         //  mRhoBenchmark.set("libs.Tronarko.render()", inicio, fim);
 
+        TextoGrande_Sel.escreva(950, 750, mHoje.getHizarko().toString());
+
+        BarraDeProgresso.progresso(r, 950, 800, 380, Tronarko.HIZARKO_TAMANHO(), mHoje.Hizarko_Duracao(), mHoje.getHizarkoCor());
+
+
+        mTextoPequeno.escreva(950, 800 + 50, "Início : " + mHoje.Hizarko_Inicio().getTextoZerado());
+        mTextoPequeno.escreva(1150, 800 + 50, "Fim : " + mHoje.Hizarko_Fim().getTextoZerado());
+
+        mTextoPequeno.escreva(950, 800 + 80, "Duração : " + mHoje.Hizarko_Duracao());
+        mTextoPequeno.escreva(1150, 800 + 80, "Tamanho : " + Tronarko.HIZARKO_TAMANHO());
+
+        mTextoPequeno.escreva(950, 800 + 110, "Fluxo : " + hizarko_fluxo(mHoje.Hizarko_Duracao()));
 
     }
 

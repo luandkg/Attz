@@ -121,6 +121,10 @@ public class HiperarkoWidget {
         TextoGrande_Sel = new FonteRunTime(mCores.getVermelho(), tamanho);
     }
 
+    public int getPosY(){
+        return CAIXA_Y;
+    }
+
     public void update(int px, int py, boolean isClicado) {
 
         if (!mPodeSelecionar) {

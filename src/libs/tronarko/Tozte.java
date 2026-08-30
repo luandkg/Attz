@@ -1,5 +1,7 @@
 package libs.tronarko;
 
+import libs.azzal.Cores;
+import libs.azzal.utilitarios.Cor;
 import libs.luan.Igualavel;
 import libs.luan.Lista;
 import libs.luan.Ordenavel;
@@ -158,9 +160,9 @@ public class Tozte {
         int ret = 1;
         int sdt = SuperarkoDoTronarko();
 
-        while (sdt > 125) {
+        while (sdt > Tronarko.HIZARKO_TAMANHO()) {
             ret += 1;
-            sdt -= 125;
+            sdt -= Tronarko.HIZARKO_TAMANHO();
         }
 
         return ret;
@@ -169,8 +171,8 @@ public class Tozte {
     public int Hizarko_Duracao() {
         int sdt = SuperarkoDoTronarko();
 
-        while (sdt > 125) {
-            sdt -= 125;
+        while (sdt > Tronarko.HIZARKO_TAMANHO()) {
+            sdt -= Tronarko.HIZARKO_TAMANHO();
         }
 
         return sdt;
@@ -268,6 +270,29 @@ public class Tozte {
                 break;
             case 4:
                 ret = Hizarkos.HARBARIUM;
+                break;
+
+        }
+
+        return ret;
+    }
+
+    public Cor getHizarkoCor() {
+        Cores mCores = new Cores();
+        Cor ret = mCores.getPreto() ;
+
+        switch (getHizarko_Valor()) {
+            case 1:
+                ret =mCores.getVermelho();
+                break;
+            case 2:
+                ret =mCores.getAmarelo();
+                break;
+            case 3:
+                ret =mCores.getCinza();
+                break;
+            case 4:
+                ret =mCores.getAzul();
                 break;
 
         }
