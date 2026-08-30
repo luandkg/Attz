@@ -11,7 +11,7 @@ import libs.tronarko.agenda.Alarme;
 import libs.tronarko.Hiperarkos;
 import libs.tronarko.Superarkos;
 import libs.tronarko.Tozte;
-import libs.tronarko.utils.TozteCor;
+import libs.tronarko.utils.EventoLegenda;
 
 
 public class HiperarkoWidget {
@@ -273,7 +273,7 @@ public class HiperarkoWidget {
     }
 
 
-    public void draw_hiperarko_com_infos(Renderizador r, Tozte mHoje, Lista<TozteCor> mInfos) {
+    public void draw_hiperarko_com_infos(Renderizador r, Tozte mHoje, Lista<EventoLegenda> mInfos) {
 
         TextoPequeno.setRenderizador(r);
         TextoPequeno_Sel.setRenderizador(r);
@@ -343,7 +343,7 @@ public class HiperarkoWidget {
 
                 boolean comFundo = false;
 
-                for (TozteCor InfoC : mInfos) {
+                for (EventoLegenda InfoC : mInfos) {
 
                     if (mTozte.isIgual(InfoC.getTozte())) {
                         mCor = InfoC.getCor();

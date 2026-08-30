@@ -12,7 +12,6 @@ import libs.azzal.utilitarios.Cor;
 import libs.documentar.AutoInt;
 import libs.luan.Lista;
 import libs.luan.Tempo;
-import libs.luan.fmt;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
 import libs.mockui.Interface.Clicavel;
@@ -27,7 +26,7 @@ import libs.tronarko.satelites.Ceu;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
-import libs.tronarko.utils.TozteCor;
+import libs.tronarko.utils.EventoLegenda;
 import libs.tronarko.utils.TronarkoFalsum;
 
 
@@ -77,7 +76,7 @@ public class AppTronarko extends Cena {
     private HiperarkoWidget mHiperarkoWidgetSelecionado;
     private TronarkoImagemSignos mTronarkoImagemSignos;
 
-    private Lista<TozteCor> mEventos;
+    private Lista<EventoLegenda> mEventos;
 
     private RhoBenchmark mRhoBenchmark;
 
@@ -336,17 +335,17 @@ public class AppTronarko extends Cena {
         int AVISO_X = 950;
         int AVISO_Y = 500;
 
-        Lista<TozteCor> eventos = mEventum.getLegenda(mEventos);
+        Lista<EventoLegenda> eventos = mEventum.getLegenda(mEventos);
 
-        for (TozteCor tozte_evento : eventos) {
+        for (EventoLegenda evento : eventos) {
 
-            Marcador.marcar(r, AVISO_X, AVISO_Y, 20, 5, tozte_evento.getCor(), mCores.getBranco());
+            Marcador.marcar(r, AVISO_X, AVISO_Y, 20, 5, evento.getCor(), mCores.getBranco());
 
-            mTextoPequeno.escreva(AVISO_X + 30, AVISO_Y, tozte_evento.getNome());
-            mTextoPequeno.escreva(AVISO_X + 280, AVISO_Y, " -->> " + tozte_evento.getComplemento());
+            mTextoPequeno.escreva(AVISO_X + 30, AVISO_Y, evento.getNome());
+            mTextoPequeno.escreva(AVISO_X + 280, AVISO_Y, " -->> " + evento.getComplemento());
 
-            if (tozte_evento.isDentro(mHoje) && mAnimacao>=20 && mAnimacao<=50) {
-                r.drawRect_Pintado(AVISO_X+7, AVISO_Y+7, 6, 6, tozte_evento.getCor());
+            if (evento.isDentro(mHoje) && mAnimacao>=20 && mAnimacao<=50) {
+                r.drawRect_Pintado(AVISO_X+7, AVISO_Y+7, 6, 6, evento.getCor());
             }
 
             AVISO_Y += 30;

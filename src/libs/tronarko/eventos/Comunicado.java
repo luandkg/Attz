@@ -2,19 +2,19 @@ package libs.tronarko.eventos;
 
 import libs.azzal.utilitarios.Cor;
 import libs.tronarko.Tozte;
-import libs.tronarko.utils.TozteCor;
+import libs.tronarko.utils.EventoLegenda;
 
 public class Comunicado {
 
-    private TozteCor mTozte;
+    private EventoLegenda mTozte;
     private String mValor;
 
-    public Comunicado(TozteCor eTozteCor, String eValor) {
-        mTozte = eTozteCor;
+    public Comunicado(EventoLegenda eEventoLegenda, String eValor) {
+        mTozte = eEventoLegenda;
         mValor = eValor;
     }
 
-    public TozteCor getTozte() {
+    public EventoLegenda getTozte() {
         return mTozte;
     }
 

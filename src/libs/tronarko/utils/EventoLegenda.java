@@ -5,7 +5,7 @@ import libs.luan.Lista;
 import libs.tronarko.Tozte;
 
 
-public class TozteCor {
+public class EventoLegenda {
 
     private String mNome;
     private Tozte mTozte;
@@ -13,7 +13,7 @@ public class TozteCor {
 
     private Lista<Tozte> mToztes;
 
-    public TozteCor(String eNome, Tozte eTozte, Cor eCor) {
+    public EventoLegenda(String eNome, Tozte eTozte, Cor eCor) {
         mNome = eNome;
         mTozte = eTozte;
         mCor = eCor;

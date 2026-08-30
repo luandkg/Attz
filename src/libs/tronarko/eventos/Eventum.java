@@ -4,7 +4,7 @@ import libs.azzal.utilitarios.Cor;
 import libs.luan.Lista;
 import libs.luan.Ordenador;
 import libs.tronarko.Hizarkos;
-import libs.tronarko.utils.TozteCor;
+import libs.tronarko.utils.EventoLegenda;
 import libs.tronarko.eventos.Ocorrencia.Modos;
 import libs.tronarko.Tozte;
 
@@ -528,15 +528,15 @@ public class Eventum {
 
     }
 
-    public Lista<TozteCor> getLegenda(Lista<TozteCor> ToztesComCor) {
+    public Lista<EventoLegenda> getLegenda(Lista<EventoLegenda> ToztesComCor) {
 
-        Lista<TozteCor> ToztesComCorUnico = new Lista<TozteCor>();
-        for (TozteCor e : ToztesComCor) {
+        Lista<EventoLegenda> ToztesComCorUnico = new Lista<EventoLegenda>();
+        for (EventoLegenda e : ToztesComCor) {
             boolean enc = false;
 
             e.getToztes().limpar();
 
-            for (TozteCor u : ToztesComCorUnico) {
+            for (EventoLegenda u : ToztesComCorUnico) {
                 if (u.getNome().contentEquals(e.getNome())) {
                     enc = true;
                     u.adicionar_Tozte(e.getTozte());
@@ -552,7 +552,7 @@ public class Eventum {
 
 
         int n = ToztesComCorUnico.getQuantidade();
-        TozteCor temp = null;
+        EventoLegenda temp = null;
 
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
@@ -571,11 +571,11 @@ public class Eventum {
         return ToztesComCorUnico;
     }
 
-    private Lista<TozteCor> removerMenorPorMaior(String eMaior, Lista<TozteCor> lsToztesComCor) {
+    private Lista<EventoLegenda> removerMenorPorMaior(String eMaior, Lista<EventoLegenda> lsToztesComCor) {
 
-        Lista<TozteCor> mRet = new Lista<TozteCor>();
-        for (TozteCor eTozteCor : lsToztesComCor) {
-            mRet.adicionar(eTozteCor);
+        Lista<EventoLegenda> mRet = new Lista<EventoLegenda>();
+        for (EventoLegenda eEventoLegenda : lsToztesComCor) {
+            mRet.adicionar(eEventoLegenda);
         }
 
         boolean remover = false;
@@ -603,7 +603,7 @@ public class Eventum {
 
         if (remover) {
 
-            for (TozteCor u : mRet) {
+            for (EventoLegenda u : mRet) {
                 if (u.getNome().contentEquals(RemoverEsse)) {
                     mRet.remover(u);
                     break;
@@ -615,12 +615,12 @@ public class Eventum {
         return mRet;
     }
 
-    public Lista<TozteCor> getToztesComCor(int eTronarko) {
+    public Lista<EventoLegenda> getToztesComCor(int eTronarko) {
 
-        Lista<TozteCor> ToztesComCor = new Lista<TozteCor>();
+        Lista<EventoLegenda> ToztesComCor = new Lista<EventoLegenda>();
 
         for (PequenoEvento e : proximosPequenosEventos(eTronarko)) {
-            ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
+            ToztesComCor.adicionar(new EventoLegenda(e.getNome(), e.getTozte(), getCor(e.getNome())));
         }
 
         for (GrandeEvento e : proximosGrandesEventos(eTronarko)) {
@@ -628,7 +628,7 @@ public class Eventum {
             ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
             for (Tozte T1 : e.getToztes()) {
-                ToztesComCor.adicionar(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
+                ToztesComCor.adicionar(new EventoLegenda(e.getNome(), T1.getCopia(), getCor(e.getNome())));
             }
         }
 
@@ -637,11 +637,11 @@ public class Eventum {
     }
 
 
-    public void alinharEventos(Lista<TozteCor> infos) {
+    public void alinharEventos(Lista<EventoLegenda> infos) {
 
         String mPassadoInfoNome = "";
 
-        for (TozteCor info : infos) {
+        for (EventoLegenda info : infos) {
 
             String mAtualInfoNome = info.getNome();
 
@@ -654,13 +654,13 @@ public class Eventum {
 
     }
 
-    public Lista<TozteCor> getToztesComCorHiperarko(int eHiperarko, int eTronarko) {
+    public Lista<EventoLegenda> getToztesComCorHiperarko(int eHiperarko, int eTronarko) {
 
-        Lista<TozteCor> ToztesComCor = new Lista<TozteCor>();
+        Lista<EventoLegenda> ToztesComCor = new Lista<EventoLegenda>();
 
         for (PequenoEvento e : proximosPequenosEventos(eTronarko)) {
 
-            ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
+            ToztesComCor.adicionar(new EventoLegenda(e.getNome(), e.getTozte(), getCor(e.getNome())));
 
         }
 
@@ -669,12 +669,12 @@ public class Eventum {
             ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
             for (Tozte T1 : e.getToztes()) {
-                ToztesComCor.adicionar(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
+                ToztesComCor.adicionar(new EventoLegenda(e.getNome(), T1.getCopia(), getCor(e.getNome())));
             }
         }
 
-        Lista<TozteCor> mFiltrando = new Lista<TozteCor>();
-        for (TozteCor e : ToztesComCor) {
+        Lista<EventoLegenda> mFiltrando = new Lista<EventoLegenda>();
+        for (EventoLegenda e : ToztesComCor) {
 
             if (e.getTozte().getHiperarko() == eHiperarko) {
                 mFiltrando.adicionar(e);
@@ -685,7 +685,7 @@ public class Eventum {
         return mFiltrando;
     }
 
-    public Lista<TozteCor> getToztesComCorEmIntervalo(Tozte eAntes, Tozte eDepois) {
+    public Lista<EventoLegenda> getToztesComCorEmIntervalo(Tozte eAntes, Tozte eDepois) {
 
 
         System.out.println("-->> ANTES : " + eAntes.getTexto());
@@ -699,7 +699,7 @@ public class Eventum {
         }
 
 
-        Lista<TozteCor> ToztesComCor = new Lista<TozteCor>();
+        Lista<EventoLegenda> ToztesComCor = new Lista<EventoLegenda>();
 
         if (eAntes.getTronarko() == eDepois.getTronarko()) {
 
@@ -707,7 +707,7 @@ public class Eventum {
 
             for (PequenoEvento e : proximosPequenosEventos(eTronarko)) {
 
-                ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
+                ToztesComCor.adicionar(new EventoLegenda(e.getNome(), e.getTozte(), getCor(e.getNome())));
 
             }
 
@@ -716,7 +716,7 @@ public class Eventum {
                 ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
                 for (Tozte T1 : e.getToztes()) {
-                    ToztesComCor.adicionar(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
+                    ToztesComCor.adicionar(new EventoLegenda(e.getNome(), T1.getCopia(), getCor(e.getNome())));
                 }
             }
 
@@ -730,7 +730,7 @@ public class Eventum {
 
                 for (PequenoEvento e : proximosPequenosEventos(eTronarko)) {
 
-                    ToztesComCor.adicionar(new TozteCor(e.getNome(), e.getTozte(), getCor(e.getNome())));
+                    ToztesComCor.adicionar(new EventoLegenda(e.getNome(), e.getTozte(), getCor(e.getNome())));
 
                 }
 
@@ -739,7 +739,7 @@ public class Eventum {
                     ToztesComCor = removerMenorPorMaior(e.getNome(), ToztesComCor);
 
                     for (Tozte T1 : e.getToztes()) {
-                        ToztesComCor.adicionar(new TozteCor(e.getNome(), T1.getCopia(), getCor(e.getNome())));
+                        ToztesComCor.adicionar(new EventoLegenda(e.getNome(), T1.getCopia(), getCor(e.getNome())));
                     }
                 }
 
@@ -747,9 +747,9 @@ public class Eventum {
 
         }
 
-        Lista<TozteCor> mFiltrando = new Lista<TozteCor>();
+        Lista<EventoLegenda> mFiltrando = new Lista<EventoLegenda>();
 
-        for (TozteCor e : ToztesComCor) {
+        for (EventoLegenda e : ToztesComCor) {
 
             if (e.getTozte().isMaiorIgualQue(eAntes) && e.getTozte().isMenorIgualQue(eDepois)) {
                 mFiltrando.adicionar(e);
@@ -761,15 +761,15 @@ public class Eventum {
         return mFiltrando;
     }
 
-    public Lista<TozteCor> getToztesComCorHizarko(int eTronarko) {
+    public Lista<EventoLegenda> getToztesComCorHizarko(int eTronarko) {
 
-        Lista<TozteCor> ToztesComCor = new Lista<TozteCor>();
+        Lista<EventoLegenda> ToztesComCor = new Lista<EventoLegenda>();
 
         Tozte eTozte = new Tozte(1, 1, eTronarko);
 
         for (int n = 0; n < 500; n++) {
 
-            ToztesComCor.adicionar(new TozteCor(eTozte.getHizarko().toString(), eTozte, getHizarkoCor(eTozte.getHizarko())));
+            ToztesComCor.adicionar(new EventoLegenda(eTozte.getHizarko().toString(), eTozte, getHizarkoCor(eTozte.getHizarko())));
 
             eTozte = eTozte.adicionar_Superarko(1);
         }

@@ -3,7 +3,7 @@ package libs.tronarko.eventos;
 import libs.luan.Lista;
 import libs.luan.Strings;
 import libs.tronarko.Tozte;
-import libs.tronarko.utils.TozteCor;
+import libs.tronarko.utils.EventoLegenda;
 
 public class Comunicum {
 
@@ -229,17 +229,17 @@ public class Comunicum {
 
     }
 
-    public static Comunicado obterComunicado(Lista<TozteCor> eventos, Tozte de) {
+    public static Comunicado obterComunicado(Lista<EventoLegenda> eventos, Tozte de) {
 
         int menor = 0;
         boolean primeiro = true;
         boolean dentro = false;
-        TozteCor dentro_de = null;
+        EventoLegenda dentro_de = null;
 
         boolean tera_proximo = false;
-        TozteCor proximo = null;
+        EventoLegenda proximo = null;
 
-        for (TozteCor tozte_evento : eventos) {
+        for (EventoLegenda tozte_evento : eventos) {
 
             if (primeiro) {
 

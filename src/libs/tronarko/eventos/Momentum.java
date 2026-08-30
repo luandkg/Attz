@@ -2,7 +2,7 @@ package libs.tronarko.eventos;
 
 import libs.luan.Lista;
 import libs.tronarko.Tozte;
-import libs.tronarko.utils.TozteCor;
+import libs.tronarko.utils.EventoLegenda;
 
 public class Momentum {
 
@@ -16,12 +16,12 @@ public class Momentum {
 
         Eventum mEventum = new Eventum();
 
-        Lista<TozteCor> mInfos = mEventum.getToztesComCorEmIntervalo(mAntes, mDepois);
+        Lista<EventoLegenda> mInfos = mEventum.getToztesComCorEmIntervalo(mAntes, mDepois);
 
-        for (TozteCor eTozteCor : mInfos) {
+        for (EventoLegenda eEventoLegenda : mInfos) {
 
-            String nome = eTozteCor.getNome() + " :: " + eTozteCor.getTozte().getTexto();
-            int distancia = getDistancia(mAtualmente, eTozteCor.getTozte());
+            String nome = eEventoLegenda.getNome() + " :: " + eEventoLegenda.getTozte().getTexto();
+            int distancia = getDistancia(mAtualmente, eEventoLegenda.getTozte());
 
             System.out.println(" -->> " + nome + " -->> " + distancia);
         }

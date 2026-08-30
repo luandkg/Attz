@@ -18,7 +18,7 @@ import libs.tronarko.eventos.Eventum;
 import libs.tronarko.Hazde;
 import libs.tronarko.Tozte;
 import libs.tronarko.Tronarko;
-import libs.tronarko.utils.TozteCor;
+import libs.tronarko.utils.EventoLegenda;
 
 public class AppLinhaDoTempo extends Cena {
 
@@ -210,7 +210,7 @@ public class AppLinhaDoTempo extends Cena {
 
         //Hoje = Hoje.adicionar_Tronarko(5);
 
-        Lista<TozteCor> mInfos = EventumC.getToztesComCorHiperarko(mHoje.getHiperarko(), mHoje.getTronarko());
+        Lista<EventoLegenda> mInfos = EventumC.getToztesComCorHiperarko(mHoje.getHiperarko(), mHoje.getTronarko());
 
 
         int LX = 50;

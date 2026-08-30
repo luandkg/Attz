@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import libs.azzal.utilitarios.Cor;
 import libs.tronarko.intervalos.Tozte_Intervalo;
 import libs.tronarko.Tozte;
-import libs.tronarko.utils.TozteCor;
+import libs.tronarko.utils.EventoLegenda;
 
 public class MapaCelestial {
 
@@ -55,9 +55,9 @@ public class MapaCelestial {
     }
 
 
-    public ArrayList<TozteCor> getToztesComCor_Allux(int eTronarko) {
+    public ArrayList<EventoLegenda> getToztesComCor_Allux(int eTronarko) {
 
-        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+        ArrayList<EventoLegenda> ToztesComCor = new ArrayList<EventoLegenda>();
 
         Allux AlluxC = new Allux();
 
@@ -71,16 +71,16 @@ public class MapaCelestial {
 
                 switch (FaseC) {
                     case CHEIA:
-                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, new Cor(200,200,0)));
+                        ToztesComCor.add(new EventoLegenda("CHEIA", TozteC, new Cor(200,200,0)));
                         break;
                     case NOVA:
-                        ToztesComCor.add(new TozteCor("NOVA", TozteC, new Cor(0,0,0)));
+                        ToztesComCor.add(new EventoLegenda("NOVA", TozteC, new Cor(0,0,0)));
                         break;
                     case MINGUANTE:
-                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, new Cor(255,0,0)));
+                        ToztesComCor.add(new EventoLegenda("MINGUANTE", TozteC, new Cor(255,0,0)));
                         break;
                     case CRESCENTE:
-                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, new Cor(0,0,255)));
+                        ToztesComCor.add(new EventoLegenda("CRESCENTE", TozteC, new Cor(0,0,255)));
                         break;
                 }
 
@@ -91,9 +91,9 @@ public class MapaCelestial {
         return ToztesComCor;
     }
 
-    public ArrayList<TozteCor> getToztesComCor_Ettos(int eTronarko) {
+    public ArrayList<EventoLegenda> getToztesComCor_Ettos(int eTronarko) {
 
-        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+        ArrayList<EventoLegenda> ToztesComCor = new ArrayList<EventoLegenda>();
 
         Ettos EttosC = new Ettos();
 
@@ -107,16 +107,16 @@ public class MapaCelestial {
 
                 switch (FaseC) {
                     case CHEIA:
-                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, Cor.getRGB(Color.YELLOW)));
+                        ToztesComCor.add(new EventoLegenda("CHEIA", TozteC, Cor.getRGB(Color.YELLOW)));
                         break;
                     case NOVA:
-                        ToztesComCor.add(new TozteCor("NOVA", TozteC, Cor.getRGB(Color.WHITE)));
+                        ToztesComCor.add(new EventoLegenda("NOVA", TozteC, Cor.getRGB(Color.WHITE)));
                         break;
                     case MINGUANTE:
-                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Cor.getRGB(Color.RED)));
+                        ToztesComCor.add(new EventoLegenda("MINGUANTE", TozteC, Cor.getRGB(Color.RED)));
                         break;
                     case CRESCENTE:
-                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC, Cor.getRGB(Color.BLUE)));
+                        ToztesComCor.add(new EventoLegenda("CRESCENTE", TozteC, Cor.getRGB(Color.BLUE)));
                         break;
                 }
 
@@ -127,9 +127,9 @@ public class MapaCelestial {
         return ToztesComCor;
     }
 
-    public ArrayList<TozteCor> getToztesComCor_Todos(int eTronarko) {
+    public ArrayList<EventoLegenda> getToztesComCor_Todos(int eTronarko) {
 
-        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+        ArrayList<EventoLegenda> ToztesComCor = new ArrayList<EventoLegenda>();
 
         Allux FaseAllux = new Allux();
         Ettos FaseEttos = new Ettos();
@@ -148,35 +148,35 @@ public class MapaCelestial {
 
                 // TRES
                 if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.CHEIA) {
-                    ToztesComCor.add(new TozteCor("ILUMUNAÇAO", TozteC, Cor.getRGB(Color.GRAY)));
+                    ToztesComCor.add(new EventoLegenda("ILUMUNAÇAO", TozteC, Cor.getRGB(Color.GRAY)));
                 }
 
                 if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.NOVA) {
-                    ToztesComCor.add(new TozteCor("ESCURIDÃO", TozteC, Cor.getRGB(Color.BLACK)));
+                    ToztesComCor.add(new EventoLegenda("ESCURIDÃO", TozteC, Cor.getRGB(Color.BLACK)));
                 }
 
                 // DUAS
                 if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.NOVA) {
-                    ToztesComCor.add(new TozteCor("ALLET", TozteC, Cor.getRGB(Color.ORANGE)));
+                    ToztesComCor.add(new EventoLegenda("ALLET", TozteC, Cor.getRGB(Color.ORANGE)));
                 }
 
                 if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.CHEIA) {
-                    ToztesComCor.add(new TozteCor("UNNALL", TozteC, Cor.getRGB(Color.GREEN)));
+                    ToztesComCor.add(new EventoLegenda("UNNALL", TozteC, Cor.getRGB(Color.GREEN)));
                 }
                 if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.CHEIA) {
-                    ToztesComCor.add(new TozteCor("ETTUN", TozteC, new Cor(135, 31, 120)));
+                    ToztesComCor.add(new EventoLegenda("ETTUN", TozteC, new Cor(135, 31, 120)));
                 }
 
                 // UM
                 if (FaseAlluxC == Fases.CHEIA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.NOVA) {
-                    ToztesComCor.add(new TozteCor("ALLIZZ", TozteC, Cor.getRGB(Color.YELLOW)));
+                    ToztesComCor.add(new EventoLegenda("ALLIZZ", TozteC, Cor.getRGB(Color.YELLOW)));
                 }
 
                 if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.CHEIA && FaseUnnosC == Fases.NOVA) {
-                    ToztesComCor.add(new TozteCor("ETTIZZ", TozteC, Cor.getRGB(Color.RED)));
+                    ToztesComCor.add(new EventoLegenda("ETTIZZ", TozteC, Cor.getRGB(Color.RED)));
                 }
                 if (FaseAlluxC == Fases.NOVA && FaseEttosC == Fases.NOVA && FaseUnnosC == Fases.CHEIA) {
-                    ToztesComCor.add(new TozteCor("UNNIZZ", TozteC, Cor.getRGB(Color.BLUE)));
+                    ToztesComCor.add(new EventoLegenda("UNNIZZ", TozteC, Cor.getRGB(Color.BLUE)));
                 }
             }
 
@@ -185,9 +185,9 @@ public class MapaCelestial {
         return ToztesComCor;
     }
 
-    public ArrayList<TozteCor> getToztesComCor_Unnos(int eTronarko) {
+    public ArrayList<EventoLegenda> getToztesComCor_Unnos(int eTronarko) {
 
-        ArrayList<TozteCor> ToztesComCor = new ArrayList<TozteCor>();
+        ArrayList<EventoLegenda> ToztesComCor = new ArrayList<EventoLegenda>();
 
         Unnos UnnosC = new Unnos();
 
@@ -201,16 +201,16 @@ public class MapaCelestial {
 
                 switch (FaseC) {
                     case CHEIA:
-                        ToztesComCor.add(new TozteCor("CHEIA", TozteC, Cor.getRGB(Color.YELLOW)));
+                        ToztesComCor.add(new EventoLegenda("CHEIA", TozteC, Cor.getRGB(Color.YELLOW)));
                         break;
                     case NOVA:
-                        ToztesComCor.add(new TozteCor("NOVA", TozteC, Cor.getRGB(Color.WHITE)));
+                        ToztesComCor.add(new EventoLegenda("NOVA", TozteC, Cor.getRGB(Color.WHITE)));
                         break;
                     case MINGUANTE:
-                        ToztesComCor.add(new TozteCor("MINGUANTE", TozteC, Cor.getRGB(Color.RED)));
+                        ToztesComCor.add(new EventoLegenda("MINGUANTE", TozteC, Cor.getRGB(Color.RED)));
                         break;
                     case CRESCENTE:
-                        ToztesComCor.add(new TozteCor("CRESCENTE", TozteC,Cor.getRGB( Color.BLUE)));
+                        ToztesComCor.add(new EventoLegenda("CRESCENTE", TozteC,Cor.getRGB( Color.BLUE)));
                         break;
                 }
 

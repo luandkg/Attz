@@ -16,7 +16,7 @@ import libs.tronarko.Tozte;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.IntTronarko;
 import libs.tronarko.utils.StringTronarko;
-import libs.tronarko.utils.TozteCor;
+import libs.tronarko.utils.EventoLegenda;
 
 public class TronarkoTG22 {
 
@@ -73,16 +73,16 @@ public class TronarkoTG22 {
         mTextoGrande.escreva(20, 20, "PROJETO TG22 - LUAN FREITAS");
 
 
-        Lista<TozteCor> mInfos = new Lista<TozteCor>();
+        Lista<EventoLegenda> mInfos = new Lista<EventoLegenda>();
 
         StringTronarko st = new StringTronarko();
 
         for (Tozte f : toztes_personal) {
-            mInfos.adicionar(new TozteCor("personal", f, Cor.getHexCor("#7CB342")));
+            mInfos.adicionar(new EventoLegenda("personal", f, Cor.getHexCor("#7CB342")));
         }
 
         for (Tozte f : interrompidos) {
-            mInfos.adicionar(new TozteCor("interrompido", f, new Cor(250, 50, 23)));
+            mInfos.adicionar(new EventoLegenda("interrompido", f, new Cor(250, 50, 23)));
         }
 
         if (projeto.getQuantidade() > 0) {
@@ -92,7 +92,7 @@ public class TronarkoTG22 {
             Tozte primeiro = st.parseTozte(projeto.get(projeto.getQuantidade() - 1).getTozte());
 
             while (primeiro.isMenorIgualQue(ultimo)) {
-                mInfos.adicionar(new TozteCor("TG22", primeiro, new Cor(255, 165, 23)));
+                mInfos.adicionar(new EventoLegenda("TG22", primeiro, new Cor(255, 165, 23)));
                 primeiro = primeiro.adicionar_Superarko(1);
             }
 
@@ -300,7 +300,7 @@ public class TronarkoTG22 {
         return ret;
     }
 
-    public void draw_hiperarko(Renderizador r, Tozte Hoje, Lista<TozteCor> mInfos, int eTronarko, int mHiperarko, int Faixador, int CAIXA_X, int CAIXA_Y, int CAIXA_ALTURA) {
+    public void draw_hiperarko(Renderizador r, Tozte Hoje, Lista<EventoLegenda> mInfos, int eTronarko, int mHiperarko, int Faixador, int CAIXA_X, int CAIXA_Y, int CAIXA_ALTURA) {
 
 
         if (Hoje.getHiperarko() == (mHiperarko)) {
@@ -351,7 +351,7 @@ public class TronarkoTG22 {
 
                 boolean comFundo = false;
 
-                for (TozteCor InfoC : mInfos) {
+                for (EventoLegenda InfoC : mInfos) {
 
                     if (mTozte.isIgual(InfoC.getTozte())) {
                         mCor = InfoC.getCor();
@@ -459,10 +459,10 @@ public class TronarkoTG22 {
         Tozte mAntes = mAtualmente.adicionar_Superarko(-50);
         Tozte mDepois = mAtualmente.adicionar_Superarko(+50);
 
-        Lista<TozteCor> mInfos = mEnventum.getToztesComCorEmIntervalo(mAntes, mDepois);
+        Lista<EventoLegenda> mInfos = mEnventum.getToztesComCorEmIntervalo(mAntes, mDepois);
 
-        for (TozteCor eTozteCor : mInfos) {
-            System.out.println(" -->> " + eTozteCor.getNome() + " :: " + eTozteCor.getTozte().getTexto() + " -->> " + getDistancia(mAtualmente, eTozteCor.getTozte()));
+        for (EventoLegenda eEventoLegenda : mInfos) {
+            System.out.println(" -->> " + eEventoLegenda.getNome() + " :: " + eEventoLegenda.getTozte().getTexto() + " -->> " + getDistancia(mAtualmente, eEventoLegenda.getTozte()));
         }
 
 
