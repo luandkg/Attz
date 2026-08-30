@@ -21,14 +21,45 @@ public class MapaZoom {
 
     private Cores mCores;
 
-    public MapaZoom(AppAtzum eApp) {
+    private int mPosX;
+    private int mPosY;
+
+    private int mLargura;
+    private int mAltura;
+
+    public MapaZoom(AppAtzum eApp,int ePX,int ePY) {
         mApp = eApp;
 
+        mPosX=ePX;
+        mPosY=ePY;
+
+        mLargura=300;
+        mAltura=300;
+
         mCores = new Cores();
-        mapa_drone = Imagem.criarEmBranco(300, 300);
+        mapa_drone = Imagem.criarEmBranco(mLargura, mAltura);
         render_drone = new Renderizador(mapa_drone);
 
+
+
     }
+
+    public int getPosX(){
+        return mPosX;
+    }
+
+    public int getPosY(){
+        return mPosY;
+    }
+
+    public int getLargura(){
+        return mLargura;
+    }
+
+    public int getAltura(){
+        return mAltura;
+    }
+
 
     public void update(boolean ultimo) {
 
@@ -98,7 +129,7 @@ public class MapaZoom {
 
     public void render(Renderizador g) {
         if (drone_ok) {
-            g.drawImagem(1900, 600, mapa_drone);
+            g.drawImagem(mPosX, mPosY, mapa_drone);
         }
     }
 

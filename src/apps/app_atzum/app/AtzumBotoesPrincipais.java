@@ -465,6 +465,21 @@ public class AtzumBotoesPrincipais {
 
         Cores mCores = new Cores();
 
+        mCamadasZoom.criarCamada("Cidades", mCores.getLaranja()).setAcao(new Acao() {
+            @Override
+            public void onClique() {
+
+                app.mWidgetMapaVisualizador.setMapaGrande(app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO());
+
+                app.mVideoEmExecucao.parar();
+
+                mCamadasZoom.setSelecionado("Cidades");
+                app.mMapaZoom.update(true);
+
+
+            }
+        });
+
         mCamadasZoom.criarCamada("Regiões", mCores.getLaranja()).setAcao(new Acao() {
             @Override
             public void onClique() {
@@ -474,6 +489,56 @@ public class AtzumBotoesPrincipais {
                 mCamadasZoom.setSelecionado("Regiões");
                 app.mMapaZoom.update(true);
 
+
+            }
+        });
+
+        mCamadasZoom.criarCamada("PlacasTectonicas", mCores.getVermelho()).setAcao(new Acao() {
+            @Override
+            public void onClique() {
+
+                app.mWidgetMapaVisualizador.setMapaGrande(app.mArquivoAtzumGeral.GET_MAPA_DE_PLACAS_TECTONICAS());
+                app.mVideoEmExecucao.parar();
+
+                mCamadasZoom.setSelecionado("PlacasTectonicas");
+                app.mMapaZoom.update(true);
+
+            }
+        });
+
+        mCamadasZoom.criarCamada("PlacasLimites", mCores.getVermelho()).setAcao(new Acao() {
+            @Override
+            public void onClique() {
+
+
+                BufferedImage placas_limites = app.mArquivoAtzumGeral.GET_MAPA_DE_PLACAS_TECTONICAS_LIMITES();
+                BufferedImage placas_regioes = app.mArquivoAtzumGeral.GET_MAPA_DE_CONTORNO();
+
+                Renderizador render = new Renderizador(placas_limites);
+                Renderizador render_regioes = new Renderizador(placas_regioes);
+
+                for(int y=0;y<render.getAltura();y++){
+                    for(int x=0;x<render.getLargura();x++){
+                        if(render.getPixel(x,y).igual(mCores.getVermelho())){
+                            render.setPixel(x,y,mCores.getAmarelo());
+                        }
+                    }
+                }
+
+                for(int y=0;y<render_regioes.getAltura();y++){
+                    for(int x=0;x<render_regioes.getLargura();x++){
+                        if(render_regioes.getPixel(x,y).igual(mCores.getVermelho())){
+                            render.setPixel(x,y,mCores.getVermelho());
+                        }
+                    }
+                }
+
+
+                app.mWidgetMapaVisualizador.setMapaGrande(render.toImagemSemAlfa());
+                app.mVideoEmExecucao.parar();
+
+                mCamadasZoom.setSelecionado("PlacasLimites");
+                app.mMapaZoom.update(true);
 
             }
         });
@@ -526,6 +591,8 @@ public class AtzumBotoesPrincipais {
 
             }
         });
+
+
 
     }
 

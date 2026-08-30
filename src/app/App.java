@@ -17,8 +17,12 @@ import apps.app_campeonatum.AppCampeonatum;
 import apps.app_dajin.AppDajin;
 import apps.app_humanidade.AppHumanidade;
 import apps.app_tozterum.BotLuan;
+import apps.app_tronarko.AppTronarkos;
 import apps.app_unbdoc.AppUnBDoc;
 import libs.azzal.AzzalUnico;
+import libs.entt.ENTT;
+import libs.entt.Entidade;
+import libs.luan.Lista;
 import libs.luan.fmt;
 import libs.tronarko.Tronarko;
 import libs.verkuz.VerkuzImplementador;
@@ -41,7 +45,7 @@ public class App {
 
         // AzzalUnico.unico("apps.AppFuzz", 1600, 1020, new apps.app_fuzz.AppFuzz());
 
-        //  AppTronarkos.TRONARKO();
+          AppTronarkos.TRONARKO();
         //  AppTronarkos.ALARME();
         //AppTronarkos.ASTROS();
 
@@ -351,7 +355,7 @@ public class App {
         fmt.print("{}", Tronarko.getTronAgora().getTextoComInfos());
         fmt.print("{}", Tronarko.getHazde().getTextoComInfos());
 
-         TesteTronarkum.TEST();
+       // TesteTronarkum.TEST();
 
 
         // Lista<Entidade> dados_a =TesteTronarkum.MAPEAR_SIGNOS(Tronarko.getTozte());
@@ -363,7 +367,7 @@ public class App {
         // AtividadesLL.VER();
 
 
-        //  TesteZettaQuorum.TESTE_MEMCACHED();
+         // TesteZettaQuorum.TESTE_MEMCACHED();
 
         //    AnalisadorTemporal.ver_cidade();
 

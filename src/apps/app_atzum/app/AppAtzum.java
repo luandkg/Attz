@@ -125,9 +125,9 @@ public class AppAtzum extends Cena {
         mCidades = Atzum.GET_CIDADES();
 
 
-        mGrupoPrincipal = new GrupoDeBotoesGrandes(50, 30);
+        mGrupoPrincipal = new GrupoDeBotoesGrandes(50, 20);
         mGrupoPrincipal.setSinalizador(BotaoSinalizador.LATERAL_DIREITA);
-        mGrupoPrincipal.setAfastamentoX(120);
+        mGrupoPrincipal.setAfastamentoX(140);
 
         mSubComandos = new GrupoDeBotoesGrandes(800, 850);
         mSubComandos.setSinalizador(BotaoSinalizador.ACIMA_DIRETA);
@@ -135,11 +135,11 @@ public class AppAtzum extends Cena {
 
         mCamadasZoom = new GrupoDeBotoesGrandes(1900, 550);
         mCamadasZoom.setSinalizador(BotaoSinalizador.LATERAL_DIREITA);
-        mCamadasZoom.setAfastamentoX(50);
+        mCamadasZoom.setAfastamentoX(30);
         mCamadasZoom.setTamanho(20);
         mCamadasZoom.exibirTexto(false);
 
-        mMapaZoom = new MapaZoom(this);
+        mMapaZoom = new MapaZoom(this,1900, 600);
 
         mClicavel = new Clicavel();
 
@@ -453,6 +453,9 @@ public class AppAtzum extends Cena {
 
         g.drawCirculoCentralizado_Pintado(20, 915, 10, mCores.getVermelho());
         ESCRITOR_NORMAL.escreva(35, 915 - 8, mGrupoPrincipal.getSelecionado());
+
+        ESCRITOR_NORMAL.escreva(mMapaZoom.getPosX()+ 15, mMapaZoom.getPosY()+mMapaZoom.getAltura()+5,  mCamadasZoom.getSelecionado());
+
 
         mGrupoPrincipal.render(g, ESCRITOR_NORMAL_BRANCO);
         mCamadasZoom.render(g, ESCRITOR_NORMAL_BRANCO);
