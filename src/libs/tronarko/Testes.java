@@ -152,12 +152,12 @@ public class Testes {
                 StringTronarko st = new StringTronarko();
 
 
-                CHECK_EQ("01/01/7000", st.parseTozte("1/1/7000").getTextoZerado());
-                CHECK_EQ("35/05/7002", st.parseTozte("35/5/7002").getTextoZerado());
-                CHECK_EQ("12/10/7008", st.parseTozte("12/10/7008").getTextoZerado());
+                CHECK_EQ("01/01/7000", StringTronarko.TOZTE_PARSER("1/1/7000").getTextoZerado());
+                CHECK_EQ("35/05/7002", StringTronarko.TOZTE_PARSER("35/5/7002").getTextoZerado());
+                CHECK_EQ("12/10/7008", StringTronarko.TOZTE_PARSER("12/10/7008").getTextoZerado());
 
-                CHECK_EQ("01:30:80", st.parseHazde("1:30:80").getTextoZerado());
-                CHECK_EQ("01:02:03", st.parseHazde("1:2:3").getTextoZerado());
+                CHECK_EQ("01:30:80", StringTronarko.HAZDE_PARSER("1:30:80").getTextoZerado());
+                CHECK_EQ("01:02:03", StringTronarko.HAZDE_PARSER("1:2:3").getTextoZerado());
 
                 CHECK_EQ("01", st.getArko("01:30:80"));
                 CHECK_EQ("30", st.getIttas("01:30:80"));

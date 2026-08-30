@@ -134,7 +134,7 @@ public class FluxoDeViagem {
 
             StringTronarko st = new StringTronarko();
 
-            String pTozte = st.parseTozte(ePonto.identifique("Tozte").getValor()).getTexto();
+            String pTozte = st.TOZTE_PARSER(ePonto.identifique("Tozte").getValor()).getTexto();
 
             if (pTozte.contentEquals(eHoje.getTexto())) {
                 viagem_hoje.add(ePonto.identifique("x").getValor() + "::" + ePonto.identifique("y").getValor());

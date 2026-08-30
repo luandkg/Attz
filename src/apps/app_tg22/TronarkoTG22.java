@@ -75,7 +75,6 @@ public class TronarkoTG22 {
 
         Lista<EventoLegenda> mInfos = new Lista<EventoLegenda>();
 
-        StringTronarko st = new StringTronarko();
 
         for (Tozte f : toztes_personal) {
             mInfos.adicionar(new EventoLegenda("personal", f, Cor.getHexCor("#7CB342")));
@@ -88,8 +87,8 @@ public class TronarkoTG22 {
         if (projeto.getQuantidade() > 0) {
 
 
-            Tozte ultimo = st.parseTozte(projeto.get(0).getTozte());
-            Tozte primeiro = st.parseTozte(projeto.get(projeto.getQuantidade() - 1).getTozte());
+            Tozte ultimo = StringTronarko.TOZTE_PARSER(projeto.get(0).getTozte());
+            Tozte primeiro = StringTronarko.TOZTE_PARSER(projeto.get(projeto.getQuantidade() - 1).getTozte());
 
             while (primeiro.isMenorIgualQue(ultimo)) {
                 mInfos.adicionar(new EventoLegenda("TG22", primeiro, new Cor(255, 165, 23)));

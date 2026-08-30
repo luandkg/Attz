@@ -279,7 +279,7 @@ public class StringTronarko {
     }
 
 
-    public static Tozte parseTozte(String entrada) {
+    public static Tozte TOZTE_PARSER(String entrada) {
 
 
         String s1 = "";
@@ -317,7 +317,7 @@ public class StringTronarko {
         return new Tozte(s, h, t);
     }
 
-    public Hazde parseHazde(String entrada) {
+    public static Hazde HAZDE_PARSER(String entrada) {
 
 
         String s1 = "";
