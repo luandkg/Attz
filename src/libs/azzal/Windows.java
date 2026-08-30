@@ -220,7 +220,7 @@ public class Windows extends JFrame implements Runnable {
             if (mDesenhar) {
                 mDesenhador += 1;
                 mCena.draw(mRenderizador);
-                getGraphics().drawImage(mImagem, 0, 7, getLargura(), getAltura(), null);
+                getGraphics().drawImage(mImagem, 0, 0, getLargura(), getAltura(), null);
             }
 
             // try {
