@@ -53,7 +53,7 @@ public class AppTronarko extends Cena {
     private Tozte mHoje;
     private Hazde mAgora;
 
-    private int mQuantos;
+    private int mQuantosSuperarkos;
     private int mQuantosIttas = 0;
 
 
@@ -115,7 +115,8 @@ public class AppTronarko extends Cena {
 
         mAtualmente = null;
         mHoje = Tronarko.getTozte();
-        mQuantos = 0;
+        mQuantosSuperarkos = 0;
+        mQuantosIttas=0;
 
         mClicavel = new Clicavel();
 
@@ -131,7 +132,7 @@ public class AppTronarko extends Cena {
         BTN_HOJE.setAcao(new Acao() {
             @Override
             public void onClique() {
-                mQuantos = 0;
+                mQuantosSuperarkos = 0;
             }
         });
 
@@ -141,7 +142,7 @@ public class AppTronarko extends Cena {
         BTN_MENOS.setAcao(new Acao() {
             @Override
             public void onClique() {
-                mQuantos -= 1;
+                mQuantosSuperarkos -= 1;
             }
         });
 
@@ -151,7 +152,7 @@ public class AppTronarko extends Cena {
         BTN_MAIS.setAcao(new Acao() {
             @Override
             public void onClique() {
-                mQuantos += 1;
+                mQuantosSuperarkos += 1;
             }
         });
 
@@ -253,7 +254,7 @@ public class AppTronarko extends Cena {
 
         mTeclado.limpar();
 
-        mHoje = mHoje.adicionar_Superarko(mQuantos);
+        mHoje = mHoje.adicionar_Superarko(mQuantosSuperarkos);
         mAgora = mAgora.adicionar_Itta(mQuantosIttas);
 
         //mAgora = mAgora.adicionar_Arco(mQuantos);
