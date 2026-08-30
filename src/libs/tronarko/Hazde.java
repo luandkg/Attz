@@ -39,6 +39,13 @@ public class Hazde {
         return ret;
     }
 
+    public int getTotalEttonsMaximo() {
+
+        int ret = (10 * 100 * 100) ;
+
+        return ret;
+    }
+
     public String getTexto() {
         String texto = "";
 
@@ -73,9 +80,16 @@ public class Hazde {
         return p1 + ":" + p2 + ":" + p3 + " ( " + getPorcentagem() + " ) :: " + getPeriarko_Valor() + " - " + getModarko_Valor();
     }
 
+    public int getProgresso(){
+        return (getArco() * 100) + getItta();
+    }
+
+    public int getMaximo(){
+        return 10 * 100;
+    }
 
     public String getPorcentagem() {
-        return fmt.f2Porcentagem((getArco() * 100) + getItta(), 10 * 100);
+        return fmt.f2Porcentagem(getProgresso(),getMaximo() );
     }
 
     public String getTextoSemUzzons() {

@@ -6,11 +6,14 @@ import apps.app_letrum.FonteDuplaRunTime;
 import apps.app_letrum.Maker.FonteRunTime;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
+import libs.azzal.Teclado;
 import libs.azzal.Windows;
 import libs.azzal.cenarios.Cena;
 import libs.azzal.utilitarios.Cor;
 import libs.documentar.AutoInt;
 import libs.luan.Lista;
+import libs.luan.Par;
+import libs.luan.Strings;
 import libs.luan.Tempo;
 import libs.mockui.Interface.Acao;
 import libs.mockui.Interface.BotaoCor;
@@ -28,6 +31,8 @@ import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
 import libs.tronarko.utils.EventoLegenda;
 import libs.tronarko.utils.TronarkoFalsum;
+
+import java.awt.event.KeyEvent;
 
 
 public class AppTronarko extends Cena {
@@ -49,6 +54,8 @@ public class AppTronarko extends Cena {
     private Hazde mAgora;
 
     private int mQuantos;
+    private int mQuantosIttas = 0;
+
 
     private Cores mCores;
 
@@ -85,6 +92,11 @@ public class AppTronarko extends Cena {
 
     private int mAnimacao = 0;
 
+    private Teclado mTeclado;
+
+    private String mVisao = "HAZDE";
+    private String mVisaoHazde = "MODARKO";
+
     @Override
     public void iniciar(Windows eWindows) {
         eWindows.setTitle("Tronarko com Azzal");
@@ -106,6 +118,8 @@ public class AppTronarko extends Cena {
         mQuantos = 0;
 
         mClicavel = new Clicavel();
+
+        mTeclado = eWindows.getTeclado();
 
         int botaoPosY = 900;
 
@@ -208,6 +222,7 @@ public class AppTronarko extends Cena {
         mHoje = Tronarko.getTozte();
         mAgora = Tronarko.getHazde();
 
+
         mFalsum.sincronizar(Tempo.getSegundos(), 12000);
 
         // mHoje = mFalsum.getTozte();
@@ -216,8 +231,31 @@ public class AppTronarko extends Cena {
 
         mClicavel.update(dt, getWindows().getMouse().getX(), getWindows().getMouse().getY(), getWindows().getMouse().isPressed());
 
+        if (mTeclado.foiPressionado(KeyEvent.VK_I)) {
+            mVisao = "HIZARKO";
+        } else if (mTeclado.foiPressionado(KeyEvent.VK_A)) {
+            mVisao = "HAZDE";
+        } else if (mTeclado.foiPressionado(KeyEvent.VK_P)) {
+
+            if (Strings.isIgual(mVisaoHazde, "MODARKO")) {
+                mVisaoHazde = "PERIARKO";
+            } else {
+                mVisaoHazde = "MODARKO";
+            }
+
+        }
+
+        if (mTeclado.foiPressionado(KeyEvent.VK_M)) {
+            mQuantosIttas += 10;
+
+        }
+        // System.out.println("Ittas : " + mQuantosIttas);
+
+        mTeclado.limpar();
 
         mHoje = mHoje.adicionar_Superarko(mQuantos);
+        mAgora = mAgora.adicionar_Itta(mQuantosIttas);
+
         //mAgora = mAgora.adicionar_Arco(mQuantos);
         // mHoje = mHoje.adicionar_Tronarko(mQuantos);
 
@@ -387,18 +425,103 @@ public class AppTronarko extends Cena {
 
         //  mRhoBenchmark.set("libs.Tronarko.render()", inicio, fim);
 
-        TextoGrande_Sel.escreva(950, 750, mHoje.getHizarko().toString());
+        if (Strings.isIgual(mVisao, "HIZARKO")) {
 
-        BarraDeProgresso.progresso(r, 950, 800, 380, Tronarko.HIZARKO_TAMANHO(), mHoje.Hizarko_Duracao(), mHoje.getHizarkoCor());
+            TextoGrande_Sel.escreva(950, 750, "HIZARKO - "+mHoje.getHizarko().toString());
+
+            BarraDeProgresso.progresso(r, 950, 800, 380, Tronarko.HIZARKO_TAMANHO(), mHoje.Hizarko_Duracao(), mHoje.getHizarkoCor());
 
 
-        mTextoPequeno.escreva(950, 800 + 50, "Início : " + mHoje.Hizarko_Inicio().getTextoZerado());
-        mTextoPequeno.escreva(1150, 800 + 50, "Fim : " + mHoje.Hizarko_Fim().getTextoZerado());
+            mTextoPequeno.escreva(950, 800 + 50, "Início : " + mHoje.Hizarko_Inicio().getTextoZerado());
+            mTextoPequeno.escreva(1150, 800 + 50, "Fim : " + mHoje.Hizarko_Fim().getTextoZerado());
 
-        mTextoPequeno.escreva(950, 800 + 80, "Duração : " + mHoje.Hizarko_Duracao());
-        mTextoPequeno.escreva(1150, 800 + 80, "Tamanho : " + Tronarko.HIZARKO_TAMANHO());
+            mTextoPequeno.escreva(950, 800 + 80, "Duração : " + mHoje.Hizarko_Duracao());
+            mTextoPequeno.escreva(1150, 800 + 80, "Tamanho : " + Tronarko.HIZARKO_TAMANHO());
 
-        mTextoPequeno.escreva(950, 800 + 110, "Fluxo : " + hizarko_fluxo(mHoje.Hizarko_Duracao()));
+            mTextoPequeno.escreva(950, 800 + 110, "Fluxo : " + hizarko_fluxo(mHoje.Hizarko_Duracao()));
+
+        } else if (Strings.isIgual(mVisao, "HAZDE")) {
+
+            Lista<Par<String, Cor>> modarkos = Lista.CRIAR(new Par<String, Cor>("OZZ", mCores.getCinza()), new Par<String, Cor>("AZZ", mCores.getLaranja()));
+            Lista<Par<String, Cor>> periarkos = Lista.CRIAR(new Par<String, Cor>("AD", mCores.getLaranja()), new Par<String, Cor>("ED", mCores.getVermelho()));
+            periarkos.adicionar(new Par<String, Cor>("OD", mCores.getCinza()));
+            periarkos.adicionar(new Par<String, Cor>("UD", mCores.getAzul()));
+
+            TextoGrande_Sel.escreva(950, 750, "HAZDE");
+
+            Cor eCorSelecionada = mCores.getLaranja();
+
+            if (Strings.isIgual(mVisaoHazde, "MODARKO")) {
+                for (Par<String, Cor> m : modarkos) {
+                    if (Strings.isIgual(m.getChave(), mAgora.getModarko_Valor())) {
+                        eCorSelecionada = m.getValor();
+                        break;
+                    }
+                }
+            } else {
+                for (Par<String, Cor> m : periarkos) {
+                    if (Strings.isIgual(m.getChave(), mAgora.getPeriarko_Valor())) {
+                        eCorSelecionada = m.getValor();
+                        break;
+                    }
+                }
+            }
+
+            BarraDeProgresso.progresso(r, 950, 800, 380, mAgora.getMaximo(), mAgora.getProgresso(), eCorSelecionada);
+
+
+            mTextoPequeno.escreva(950, 800 + 50, "Modarko : " + mAgora.getModarko_Valor());
+            mTextoPequeno.escreva(1150, 800 + 50, "Periarko : " + mAgora.getPeriarko_Valor());
+
+            if (Strings.isIgual(mVisaoHazde, "MODARKO")) {
+                r.drawRect_Pintado(950, 800 + 70, 120, 3, mCores.getVermelho());
+
+
+                int infox = 950;
+                int infoy = 800 + 70;
+
+                for (Par<String, Cor> m : modarkos) {
+
+                    Marcador.marcar_barra_dupla(r, infox, infoy + 30, 5, 25, m.getValor());
+                    mTextoPequeno.escreva(infox + 30, infoy + 35, m.getChave());
+
+                    if(Strings.isIgual(m.getChave(),mAgora.getModarko_Valor()) && mAnimacao >= 20 && mAnimacao <= 50){
+                        r.drawRect_Pintado(infox-15, infoy + 35+3, 10, 10, m.getValor());
+                    }
+
+                    infoy += 35;
+                }
+
+
+            } else {
+                r.drawRect_Pintado(1150, 800 + 70, 120, 3, mCores.getVermelho());
+
+                int infox = 1150;
+                int infoy = 800 + 70;
+
+                int i = 0;
+
+                for (Par<String, Cor> m : periarkos) {
+
+                    Marcador.marcar_barra_dupla(r, infox, infoy + 30, 5, 25, m.getValor());
+                    mTextoPequeno.escreva(infox + 30, infoy + 35, m.getChave());
+
+                    if(Strings.isIgual(m.getChave(),mAgora.getPeriarko_Valor()) && mAnimacao >= 20 && mAnimacao <= 50){
+                        r.drawRect_Pintado(infox-15, infoy + 35+3, 10, 10, m.getValor());
+                    }
+
+                    infoy += 35;
+                    i+=1;
+
+                    if(i==2){
+                        infox+=100;
+                        infoy = 800 + 70;
+                    }
+                }
+            }
+
+        }
+
 
     }
 
