@@ -82,6 +82,7 @@ public class AppTronarko extends Cena {
     private TronarkoImagemSignos mTronarkoImagemSignos;
 
     private PeriarkoProgresso mPeriarkoProgresso;
+    private ModarkoProgresso mModarkoProgresso;
 
     private Lista<EventoLegenda> mEventos;
 
@@ -100,6 +101,7 @@ public class AppTronarko extends Cena {
     private final int POS_TRONARKO_INFO_PY = 15;
 
     private Lista<Par<String, Cor>> mPeriarkos;
+    private Lista<Par<String, Cor>> mModarkos ;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -172,6 +174,7 @@ public class AppTronarko extends Cena {
         mPeriarkos.adicionar(new Par<String, Cor>("OD", mCores.getCinza()));
         mPeriarkos.adicionar(new Par<String, Cor>("UD", mCores.getAzul()));
 
+        mModarkos=Lista.CRIAR(new Par<String, Cor>("OZZ", mCores.getCinza()), new Par<String, Cor>("AZZ", mCores.getLaranja()));
 
         //ExportarSequenciaLunar.exportar(mHoje, 100, "/home/luan/Imagens/tronarko_luas.png");
         // ExportarSequenciaLunar.exportar(new Tozte(1, 1, 7001), 500, "/home/luan/Imagens/tronarko_luas_iluminacao.png");
@@ -207,7 +210,9 @@ public class AppTronarko extends Cena {
         mHiperarkoWidgetSelecionado = new HiperarkoWidget(950, 140, 1, mHoje.getTronarko());
         mHiperarkoWidgetSelecionado.setTamanhoCaixaTitulo(20);
 
-        mPeriarkoProgresso = new PeriarkoProgresso(POS_TRONARKO_INFO_PX,POS_TRONARKO_INFO_PY,mPeriarkos);
+        mPeriarkoProgresso = new PeriarkoProgresso(POS_TRONARKO_INFO_PX, POS_TRONARKO_INFO_PY, mPeriarkos);
+        mModarkoProgresso = new ModarkoProgresso(POS_TRONARKO_INFO_PX, POS_TRONARKO_INFO_PY, mModarkos);
+
 
         mRhoBenchmark = new RhoBenchmark("res/libs.RhoBenchmark.dkg", 0, 400);
 
@@ -249,18 +254,19 @@ public class AppTronarko extends Cena {
         } else if (mTeclado.foiPressionado(KeyEvent.VK_A)) {
             mVisao = "HAZDE";
         } else if (mTeclado.foiPressionado(KeyEvent.VK_P)) {
-
-            if (Strings.isIgual(mVisaoHazde, "MODARKO")) {
-                mVisaoHazde = "PERIARKO";
-            } else {
-                mVisaoHazde = "MODARKO";
-            }
-
+            mVisaoHazde = "PERIARKO";
+        } else if (mTeclado.foiPressionado(KeyEvent.VK_M)) {
+            mVisaoHazde = "MODARKO";
         }
 
-        if (mTeclado.foiPressionado(KeyEvent.VK_M)) {
+        if (mTeclado.foiPressionado(KeyEvent.VK_RIGHT)) {
             mQuantosIttas += 10;
-
+        }else if (mTeclado.foiPressionado(KeyEvent.VK_LEFT)) {
+            mQuantosIttas -= 10;
+        }else if (mTeclado.foiPressionado(KeyEvent.VK_UP)) {
+            mQuantosSuperarkos +=1;
+        }else if (mTeclado.foiPressionado(KeyEvent.VK_DOWN)) {
+            mQuantosSuperarkos -=1;
         }
         // System.out.println("Ittas : " + mQuantosIttas);
 
@@ -288,13 +294,16 @@ public class AppTronarko extends Cena {
         mHiperarkoWidget_09.setTronarko(mHoje.getTronarko());
         mHiperarkoWidget_10.setTronarko(mHoje.getTronarko());
 
-        if(mAnimacao >= 20 && mAnimacao <= 50){
+        if (mAnimacao >= 20 && mAnimacao <= 50) {
             mPeriarkoProgresso.setIttaVisivel(true);
-        }else{
+            mModarkoProgresso.setIttaVisivel(true);
+        } else {
             mPeriarkoProgresso.setIttaVisivel(false);
+            mModarkoProgresso.setIttaVisivel(true);
         }
 
         mPeriarkoProgresso.update(mAgora);
+        mModarkoProgresso.update(mAgora);
 
         if (mAtualmente == null) {
             mAtualmente = mHoje;
@@ -334,7 +343,6 @@ public class AppTronarko extends Cena {
     public void draw(Renderizador r) {
 
 
-
         long inicio = mRhoBenchmark.get();
 
         r.limpar(mCores.getBranco());
@@ -369,14 +377,17 @@ public class AppTronarko extends Cena {
         mHiperarkoWidget_10.drawHiperarkoComInfos(r, mHoje, mEventos);
 
 
-
         mTextoGrandeDestacado.escreva(940, POS_TRONARKO_INFO_PY, String.valueOf(mHoje.getTronarko()));
 
         mTextoPequeno.escreva(950, POS_TRONARKO_INFO_PY + 40, " -->> Hoje : " + mHoje.getTextoZerado());
         mTextoPequeno.escreva(950, POS_TRONARKO_INFO_PY + 60, " -->> Agora : " + mAgora.getTextoZerado());
         mTextoPequeno.escreva(950, POS_TRONARKO_INFO_PY + 80, " -->> Falta : " + mAgora.getTotalEttonsParaAcabarFormatado());
 
-        mPeriarkoProgresso.draw(r);
+        if (Strings.isIgual(mVisaoHazde, "MODARKO")) {
+            mModarkoProgresso.draw(r);
+        } else {
+            mPeriarkoProgresso.draw(r);
+        }
 
         final int POS_SATELITES_X = 950 + 220;
         final int POS_SATELITES_Y = POS_TRONARKO_INFO_PY + 40;
@@ -468,7 +479,6 @@ public class AppTronarko extends Cena {
 
         } else if (Strings.isIgual(mVisao, "HAZDE")) {
 
-            Lista<Par<String, Cor>> modarkos = Lista.CRIAR(new Par<String, Cor>("OZZ", mCores.getCinza()), new Par<String, Cor>("AZZ", mCores.getLaranja()));
 
 
             mTextoGrandeDestacado.escreva(950, 750, "HAZDE");
@@ -476,7 +486,7 @@ public class AppTronarko extends Cena {
             Cor eCorSelecionada = mCores.getLaranja();
 
             if (Strings.isIgual(mVisaoHazde, "MODARKO")) {
-                for (Par<String, Cor> m : modarkos) {
+                for (Par<String, Cor> m : mModarkos) {
                     if (Strings.isIgual(m.getChave(), mAgora.getModarko_Valor())) {
                         eCorSelecionada = m.getValor();
                         break;
@@ -504,7 +514,7 @@ public class AppTronarko extends Cena {
                 int posInfoX = 950;
                 int posInfoY = 800 + 70;
 
-                for (Par<String, Cor> m : modarkos) {
+                for (Par<String, Cor> m : mModarkos) {
 
                     Marcador.marcar_barra_dupla(r, posInfoX, posInfoY + 30, 5, 25, m.getValor());
                     mTextoPequeno.escreva(posInfoX + 30, posInfoY + 35, m.getChave());

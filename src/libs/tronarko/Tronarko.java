@@ -318,6 +318,25 @@ public class Tronarko {
         return 125;
     }
 
+    public static Modarkos GET_MODARKO(int arko) {
+        Modarkos ret = null;
+
+        if (arko >= 0 && arko <= 1) {
+            ret = Modarkos.OZZ;
+        }
+        if (arko >= 2 && arko <= 4) {
+            ret = Modarkos.AZZ;
+        }
+        if (arko >= 5 && arko <= 7) {
+            ret = Modarkos.AZZ;
+        }
+        if (arko >= 8 && arko <= 9) {
+            ret = Modarkos.OZZ;
+        }
+
+        return ret;
+    }
+
     public static Periarkos GET_PERIARKO(int arko) {
         Periarkos ret = null;
 
