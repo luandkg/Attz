@@ -194,7 +194,7 @@ public class AppAlarme extends Cena {
         draw_agenda(r, 610, 150);
 
 
-        mHiperarkoWidget.draw_hiperarko(r, mHoje, mAlarme, mHoje.getHiperarko());
+        mHiperarkoWidget.drawHiperarko(r, mHoje, mAlarme, mHoje.getHiperarko());
 
 
         draw_agenda_selecionado(r, 50, 500, mHiperarkoWidget);

@@ -170,7 +170,7 @@ public class HiperarkoWidget {
 
     }
 
-    public void draw_hiperarko(Renderizador r, Tozte Hoje, Alarme mAlarme, int mHiperarko) {
+    public void drawHiperarko(Renderizador r, Tozte tozteSelecionado, Alarme alarme, int hiperarkoSelecionado) {
 
         TextoPequeno.setRenderizador(r);
         TextoPequeno_Sel.setRenderizador(r);
@@ -182,13 +182,13 @@ public class HiperarkoWidget {
         TextoPequeno_HojePintado.setRenderizador(r);
 
 
-        int eTronarko = Hoje.getTronarko();
+        int eTronarko = tozteSelecionado.getTronarko();
 
 
-        if (Hoje.getHiperarko() == mHiperarko) {
-            TextoGrande_Sel.escreva(CAIXA_X, CAIXA_Y, Hiperarkos.getNumerado(mHiperarko));
+        if (tozteSelecionado.getHiperarko() == hiperarkoSelecionado) {
+            TextoGrande_Sel.escreva(CAIXA_X, CAIXA_Y, Hiperarkos.getNumerado(hiperarkoSelecionado));
         } else {
-            TextoGrande.escreva(CAIXA_X, CAIXA_Y, Hiperarkos.getNumerado(mHiperarko));
+            TextoGrande.escreva(CAIXA_X, CAIXA_Y, Hiperarkos.getNumerado(hiperarkoSelecionado));
         }
 
         // CAIXA DE NOMES DOS SUPERARKOS
@@ -197,8 +197,8 @@ public class HiperarkoWidget {
             String eSuperarkoCapital = Superarkos.get(s + 1).getCapital();
             boolean is_destacar = false;
 
-            if ((Hoje.getTronarko() == eTronarko) && (Hoje.getHiperarko() == mHiperarko)) {
-                if (eSuperarkoCapital.contentEquals(Hoje.Superarko_capital())) {
+            if ((tozteSelecionado.getTronarko() == eTronarko) && (tozteSelecionado.getHiperarko() == hiperarkoSelecionado)) {
+                if (eSuperarkoCapital.contentEquals(tozteSelecionado.Superarko_capital())) {
                     is_destacar = true;
                 }
             }
@@ -220,12 +220,12 @@ public class HiperarkoWidget {
                 int QX = CAIXA_X + (s * 40) + 5;
                 int QY = CAIXA_Y + 10 + 30 + ((m + 1) * 20);
 
-                Tozte mTozte = new Tozte((m * 10) + (s + 1), mHiperarko, eTronarko);
+                Tozte mTozte = new Tozte((m * 10) + (s + 1), hiperarkoSelecionado, eTronarko);
 
                 Cor mCor = mCores.getBranco();
 
                 boolean comFundo = false;
-                if (mAlarme.temLembretes(mTozte)) {
+                if (alarme.temLembretes(mTozte)) {
                     mCor = tem_eventos;
                     comFundo = true;
                 }
@@ -250,7 +250,7 @@ public class HiperarkoWidget {
                     mSuperNum = "0" + mSuperNum;
                 }
 
-                if (Hoje.isIgual(mTozte)) {
+                if (tozteSelecionado.isIgual(mTozte)) {
 
                     if (comFundo) {
                         TextoPequeno_Hoje2.escreva(QX, QY, mSuperNum);
@@ -277,7 +277,7 @@ public class HiperarkoWidget {
     }
 
 
-    public void draw_hiperarko_com_infos(Renderizador r, Tozte mHoje, Lista<EventoLegenda> mInfos) {
+    public void drawHiperarkoComInfos(Renderizador r, Tozte tozteSelecionado, Lista<EventoLegenda> legenda) {
 
         TextoPequeno.setRenderizador(r);
         TextoPequeno_Sel.setRenderizador(r);
@@ -289,7 +289,7 @@ public class HiperarkoWidget {
         TextoPequeno_HojePintado.setRenderizador(r);
 
 
-        if (mHoje.getHiperarko() == (mHiperarko)) {
+        if (tozteSelecionado.getHiperarko() == (mHiperarko)) {
             TextoGrande_Sel.escreva(CAIXA_X - 10, CAIXA_Y, Hiperarkos.getNumerado(mHiperarko));
         } else {
             TextoGrande.escreva(CAIXA_X - 10, CAIXA_Y, Hiperarkos.getNumerado(mHiperarko));
@@ -299,9 +299,9 @@ public class HiperarkoWidget {
 
             String eMega = Superarkos.get(s + 1).getCapital();
 
-            if ((mHoje.getTronarko() == mTronarko) && (mHoje.getHiperarko() == mHiperarko)) {
+            if ((tozteSelecionado.getTronarko() == mTronarko) && (tozteSelecionado.getHiperarko() == mHiperarko)) {
 
-                if (eMega.contentEquals(mHoje.Superarko_capital())) {
+                if (eMega.contentEquals(tozteSelecionado.Superarko_capital())) {
 
                     TextoPequeno_Sel.escreva((CAIXA_X - 10) + (s * 40),
                             (30) + CAIXA_Y, eMega);
@@ -347,7 +347,7 @@ public class HiperarkoWidget {
 
                 boolean comFundo = false;
 
-                for (EventoLegenda InfoC : mInfos) {
+                for (EventoLegenda InfoC : legenda) {
 
                     if (mTozte.isIgual(InfoC.getTozte())) {
                         mCor = InfoC.getCor();
@@ -378,7 +378,7 @@ public class HiperarkoWidget {
                     mSuperNum = "0" + mSuperNum;
                 }
 
-                if (mHoje.isIgual(mTozte)) {
+                if (tozteSelecionado.isIgual(mTozte)) {
                     if (comFundo) {
                         TextoPequeno_HojePintado.escreva(QX, QY, mSuperNum);
                     } else {

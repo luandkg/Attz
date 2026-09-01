@@ -333,18 +333,18 @@ public class AppTronarko extends Cena {
         mEventum.alinharEventos(mEventos);
 
 
-        mHiperarkoWidget_01.draw_hiperarko_com_infos(r, mHoje, mEventos);
-        mHiperarkoWidget_02.draw_hiperarko_com_infos(r, mHoje, mEventos);
-        mHiperarkoWidget_03.draw_hiperarko_com_infos(r, mHoje, mEventos);
-        mHiperarkoWidget_04.draw_hiperarko_com_infos(r, mHoje, mEventos);
-        mHiperarkoWidget_05.draw_hiperarko_com_infos(r, mHoje, mEventos);
+        mHiperarkoWidget_01.drawHiperarkoComInfos(r, mHoje, mEventos);
+        mHiperarkoWidget_02.drawHiperarkoComInfos(r, mHoje, mEventos);
+        mHiperarkoWidget_03.drawHiperarkoComInfos(r, mHoje, mEventos);
+        mHiperarkoWidget_04.drawHiperarkoComInfos(r, mHoje, mEventos);
+        mHiperarkoWidget_05.drawHiperarkoComInfos(r, mHoje, mEventos);
 
 
-        mHiperarkoWidget_06.draw_hiperarko_com_infos(r, mHoje, mEventos);
-        mHiperarkoWidget_07.draw_hiperarko_com_infos(r, mHoje, mEventos);
-        mHiperarkoWidget_08.draw_hiperarko_com_infos(r, mHoje, mEventos);
-        mHiperarkoWidget_09.draw_hiperarko_com_infos(r, mHoje, mEventos);
-        mHiperarkoWidget_10.draw_hiperarko_com_infos(r, mHoje, mEventos);
+        mHiperarkoWidget_06.drawHiperarkoComInfos(r, mHoje, mEventos);
+        mHiperarkoWidget_07.drawHiperarkoComInfos(r, mHoje, mEventos);
+        mHiperarkoWidget_08.drawHiperarkoComInfos(r, mHoje, mEventos);
+        mHiperarkoWidget_09.drawHiperarkoComInfos(r, mHoje, mEventos);
+        mHiperarkoWidget_10.drawHiperarkoComInfos(r, mHoje, mEventos);
 
         int infoPosY = 35;
 
@@ -369,7 +369,7 @@ public class AppTronarko extends Cena {
         // mTextoPequeno.escreva(pAllus - 10, ePosY + 80, mCeu.getAllux().getFaseIntTozte(mHoje) + " :: " + mCeu.getAllux().getFase(mHoje).toString());
 
 
-        mHiperarkoWidgetSelecionado.draw_hiperarko_com_infos(r, mHoje, mEventos);
+        mHiperarkoWidgetSelecionado.drawHiperarkoComInfos(r, mHoje, mEventos);
 
 
         BarraDeProgresso.tri_progresso(r, 950, 320, 380, 50, mHoje.getSuperarko(), 25, 40);
