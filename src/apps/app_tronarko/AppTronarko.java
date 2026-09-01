@@ -43,7 +43,7 @@ public class AppTronarko extends Cena {
     private FonteDupla mTextoPequeno;
 
     private Fonte mTextoPequenoBranco;
-    private Fonte TextoGrande_Sel;
+    private Fonte mTextoGrandeDestacado;
 
     private Eventum mEventum;
     private Ceu mCeu;
@@ -108,7 +108,7 @@ public class AppTronarko extends Cena {
         mTextoPequeno = new FonteDuplaRunTime(mCores.getPreto(), mCores.getVermelho(), 11);
         mTextoPequenoBranco = new FonteRunTime(mCores.getBranco(), 11);
 
-        TextoGrande_Sel = new FonteRunTime(mCores.getVermelho(), 20);
+        mTextoGrandeDestacado = new FonteRunTime(mCores.getVermelho(), 20);
 
         mEventum = new Eventum();
         mCeu = new Ceu();
@@ -116,7 +116,7 @@ public class AppTronarko extends Cena {
         mAtualmente = null;
         mHoje = Tronarko.getTozte();
         mQuantosSuperarkos = 0;
-        mQuantosIttas=0;
+        mQuantosIttas = 0;
 
         mClicavel = new Clicavel();
 
@@ -323,7 +323,7 @@ public class AppTronarko extends Cena {
         mTextoPequeno.setRenderizador(r);
         mTextoGrande.setRenderizador(r);
         mTextoPequenoBranco.setRenderizador(r);
-        TextoGrande_Sel.setRenderizador(r);
+        mTextoGrandeDestacado.setRenderizador(r);
 
         mTextoPequenoBranco.escreva(BTN_MENOS.getX() + 5, BTN_MENOS.getY() + 40, "-1");
         mTextoPequenoBranco.escreva(BTN_MAIS.getX() + 25, BTN_MAIS.getY() + 40, "+1");
@@ -346,24 +346,27 @@ public class AppTronarko extends Cena {
         mHiperarkoWidget_09.drawHiperarkoComInfos(r, mHoje, mEventos);
         mHiperarkoWidget_10.drawHiperarkoComInfos(r, mHoje, mEventos);
 
-        int infoPosY = 35;
 
-        mTextoPequeno.escreva(950, infoPosY, " -->> Hoje : " + mHoje.getTextoZerado());
-        mTextoPequeno.escreva(950, infoPosY + 25, " -->> Agora : " + mAgora.getTextoZerado());
-        mTextoPequeno.escreva(950, infoPosY + 50, " -->> Falta : " + mAgora.getTotalEttonsParaAcabarFormatado());
+        final int POS_TRONARKO_INFO_PY = 15;
+
+        mTextoGrandeDestacado.escreva(940, POS_TRONARKO_INFO_PY, String.valueOf(mHoje.getTronarko()));
+
+        mTextoPequeno.escreva(950, POS_TRONARKO_INFO_PY + 40, " -->> Hoje : " + mHoje.getTextoZerado());
+        mTextoPequeno.escreva(950, POS_TRONARKO_INFO_PY + 60, " -->> Agora : " + mAgora.getTextoZerado());
+        mTextoPequeno.escreva(950, POS_TRONARKO_INFO_PY + 80, " -->> Falta : " + mAgora.getTotalEttonsParaAcabarFormatado());
 
 
-        int POS_Y_SATELITES = infoPosY;
-        int POS_X_SATELITES = 950 + 300;
+        final int POS_SATELITES_X = 950 + 220;
+        final int POS_SATELITES_Y = POS_TRONARKO_INFO_PY + 40;
 
 
-        r.drawImagemComAlfa(POS_X_SATELITES, POS_Y_SATELITES, mSatelatizadorAllux.get(mCeu.getAllux().getFaseIntTozte(mHoje)));
-        r.drawImagemComAlfa(POS_X_SATELITES + 60, POS_Y_SATELITES, mSatelatizadorEttos.get(mCeu.getEttos().getFaseIntTozte(mHoje)));
-        r.drawImagemComAlfa(POS_X_SATELITES + 120, POS_Y_SATELITES, mSatelatizadorUnnos.get(mCeu.getUnnos().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(POS_SATELITES_X, POS_SATELITES_Y, mSatelatizadorAllux.get(mCeu.getAllux().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(POS_SATELITES_X + 60, POS_SATELITES_Y, mSatelatizadorEttos.get(mCeu.getEttos().getFaseIntTozte(mHoje)));
+        r.drawImagemComAlfa(POS_SATELITES_X + 120, POS_SATELITES_Y, mSatelatizadorUnnos.get(mCeu.getUnnos().getFaseIntTozte(mHoje)));
 
-        mTextoPequeno.escreva(POS_X_SATELITES - 10, POS_Y_SATELITES + 40, mCeu.getAllux().getNomeCapitalizado());
-        mTextoPequeno.escreva(POS_X_SATELITES + 60 - 10, POS_Y_SATELITES + 40, mCeu.getEttos().getNomeCapitalizado());
-        mTextoPequeno.escreva(POS_X_SATELITES + 120 - 10, POS_Y_SATELITES + 40, mCeu.getUnnos().getNomeCapitalizado());
+        mTextoPequeno.escreva(POS_SATELITES_X - 10, POS_SATELITES_Y + 40, mCeu.getAllux().getNomeCapitalizado());
+        mTextoPequeno.escreva(POS_SATELITES_X + 60 - 10, POS_SATELITES_Y + 40, mCeu.getEttos().getNomeCapitalizado());
+        mTextoPequeno.escreva(POS_SATELITES_X + 120 - 10, POS_SATELITES_Y + 40, mCeu.getUnnos().getNomeCapitalizado());
 
 
         // mTextoPequeno.escreva(pAllus - 10, ePosY + 80, mCeu.getAllux().getFaseIntTozte(mHoje) + " :: " + mCeu.getAllux().getFase(mHoje).toString());
@@ -375,7 +378,7 @@ public class AppTronarko extends Cena {
         BarraDeProgresso.tri_progresso(r, 950, 320, 380, 50, mHoje.getSuperarko(), 25, 40);
 
 
-        int AVISO_X = 950;
+        final int AVISO_X = 950;
         int AVISO_Y = 370;
 
         Lista<EventoLegenda> eventos = mEventum.getLegenda(mEventos);
@@ -428,7 +431,7 @@ public class AppTronarko extends Cena {
 
         if (Strings.isIgual(mVisao, "HIZARKO")) {
 
-            TextoGrande_Sel.escreva(950, 750, "HIZARKO - "+mHoje.getHizarko().toString());
+            mTextoGrandeDestacado.escreva(950, 750, "HIZARKO - " + mHoje.getHizarko().toString());
 
             BarraDeProgresso.progresso(r, 950, 800, 380, Tronarko.HIZARKO_TAMANHO(), mHoje.Hizarko_Duracao(), mHoje.getHizarkoCor());
 
@@ -448,7 +451,7 @@ public class AppTronarko extends Cena {
             periarkos.adicionar(new Par<String, Cor>("OD", mCores.getCinza()));
             periarkos.adicionar(new Par<String, Cor>("UD", mCores.getAzul()));
 
-            TextoGrande_Sel.escreva(950, 750, "HAZDE");
+            mTextoGrandeDestacado.escreva(950, 750, "HAZDE");
 
             Cor eCorSelecionada = mCores.getLaranja();
 
@@ -478,45 +481,45 @@ public class AppTronarko extends Cena {
                 r.drawRect_Pintado(950, 800 + 70, 120, 3, mCores.getVermelho());
 
 
-                int infox = 950;
-                int infoy = 800 + 70;
+                int posInfoX = 950;
+                int posInfoY = 800 + 70;
 
                 for (Par<String, Cor> m : modarkos) {
 
-                    Marcador.marcar_barra_dupla(r, infox, infoy + 30, 5, 25, m.getValor());
-                    mTextoPequeno.escreva(infox + 30, infoy + 35, m.getChave());
+                    Marcador.marcar_barra_dupla(r, posInfoX, posInfoY + 30, 5, 25, m.getValor());
+                    mTextoPequeno.escreva(posInfoX + 30, posInfoY + 35, m.getChave());
 
-                    if(Strings.isIgual(m.getChave(),mAgora.getModarko_Valor()) && mAnimacao >= 20 && mAnimacao <= 50){
-                        r.drawRect_Pintado(infox-15, infoy + 35+3, 10, 10, m.getValor());
+                    if (Strings.isIgual(m.getChave(), mAgora.getModarko_Valor()) && mAnimacao >= 20 && mAnimacao <= 50) {
+                        r.drawRect_Pintado(posInfoX - 15, posInfoY + 35 + 3, 10, 10, m.getValor());
                     }
 
-                    infoy += 35;
+                    posInfoY += 35;
                 }
 
 
             } else {
                 r.drawRect_Pintado(1150, 800 + 70, 120, 3, mCores.getVermelho());
 
-                int infox = 1150;
-                int infoy = 800 + 70;
+                int posInfoX = 1150;
+                int posInfoY = 800 + 70;
 
                 int i = 0;
 
                 for (Par<String, Cor> m : periarkos) {
 
-                    Marcador.marcar_barra_dupla(r, infox, infoy + 30, 5, 25, m.getValor());
-                    mTextoPequeno.escreva(infox + 30, infoy + 35, m.getChave());
+                    Marcador.marcar_barra_dupla(r, posInfoX, posInfoY + 30, 5, 25, m.getValor());
+                    mTextoPequeno.escreva(posInfoX + 30, posInfoY + 35, m.getChave());
 
-                    if(Strings.isIgual(m.getChave(),mAgora.getPeriarko_Valor()) && mAnimacao >= 20 && mAnimacao <= 50){
-                        r.drawRect_Pintado(infox-15, infoy + 35+3, 10, 10, m.getValor());
+                    if (Strings.isIgual(m.getChave(), mAgora.getPeriarko_Valor()) && mAnimacao >= 20 && mAnimacao <= 50) {
+                        r.drawRect_Pintado(posInfoX - 15, posInfoY + 35 + 3, 10, 10, m.getValor());
                     }
 
-                    infoy += 35;
-                    i+=1;
+                    posInfoY += 35;
+                    i += 1;
 
-                    if(i==2){
-                        infox+=100;
-                        infoy = 800 + 70;
+                    if (i == 2) {
+                        posInfoX += 100;
+                        posInfoY = 800 + 70;
                     }
                 }
             }
