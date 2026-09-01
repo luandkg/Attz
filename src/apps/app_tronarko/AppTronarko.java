@@ -288,6 +288,12 @@ public class AppTronarko extends Cena {
         mHiperarkoWidget_09.setTronarko(mHoje.getTronarko());
         mHiperarkoWidget_10.setTronarko(mHoje.getTronarko());
 
+        if(mAnimacao >= 20 && mAnimacao <= 50){
+            mPeriarkoProgresso.setIttaVisivel(true);
+        }else{
+            mPeriarkoProgresso.setIttaVisivel(false);
+        }
+
         mPeriarkoProgresso.update(mAgora);
 
         if (mAtualmente == null) {

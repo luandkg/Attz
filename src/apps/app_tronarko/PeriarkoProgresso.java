@@ -17,6 +17,8 @@ public class PeriarkoProgresso {
     private int mPX;
     private int mPY;
 
+    private boolean mIttaVisivel;
+
     private Hazde mAgora;
     private Lista<Par<String, Cor>> mPeriarkos;
 
@@ -25,10 +27,15 @@ public class PeriarkoProgresso {
         mPX = ePX;
         mPY=ePY;
         mPeriarkos=ePeriarkos;
+        mIttaVisivel=true;
     }
 
     public void update(Hazde agora){
         mAgora=agora;
+    }
+
+    public void setIttaVisivel(boolean eIttaVisivel){
+        mIttaVisivel=eIttaVisivel;
     }
 
     public void draw(Renderizador r){
@@ -52,9 +59,10 @@ public class PeriarkoProgresso {
 
         r.drawRect(mPX + ((mAgora.getArco()) * 40), mPY + 105, 40, 18, mCores.getPreto());
 
-        double ti =  40.0/100.0;
 
-        r.drawRect_Pintado((mPX + ((mAgora.getArco()) * 40)) + (int)(mAgora.getItta()*ti), mPY + 100, 3, 30, mCores.getPreto());
+        if(mIttaVisivel){
+            r.drawRect_Pintado((mPX + ((mAgora.getArco()) * 40)) + (int)(mAgora.getItta()*(40.0/100.0)), mPY + 100, 3, 30, mCores.getPreto());
+        }
 
 
         r.drawRect_Pintado(mPX, mPY + 110 + 3, 400, 3, mCores.getPreto());
