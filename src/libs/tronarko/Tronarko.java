@@ -47,8 +47,8 @@ public class Tronarko {
     private static final int TRONARKO_SUPERARKOS_POR_TRONARKO = 500;
     private static final int TRONARKO_SUPERARKOS_POR_HIPERARKO = 50;
 
-    public static final int SUPERARKOS_POR_HIPERARKO=50;
-    public static final int SUPERARKOS_POR_MEGARKO=10;
+    public static final int SUPERARKOS_POR_HIPERARKO = 50;
+    public static final int SUPERARKOS_POR_MEGARKO = 10;
 
     // TRON
     public static String getAgora() {
@@ -194,11 +194,11 @@ public class Tronarko {
 
 
     public static long SUPERARKOS_ENTRE_COM(Tozte inicio, Tozte fim) {
-        return  TOZTE_ENTRE( inicio, fim,false);
+        return TOZTE_ENTRE(inicio, fim, false);
     }
 
     public static long SUPERARKOS_ENTRE_COM_FIM(Tozte inicio, Tozte fim) {
-        return  TOZTE_ENTRE( inicio, fim,true);
+        return TOZTE_ENTRE(inicio, fim, true);
     }
 
 
@@ -266,14 +266,14 @@ public class Tronarko {
         if (iniciado.getTozte().isIgual(terminado.getTozte())) {
 
             long uzzons = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), iniciado.getHazde());
-            return uzzons ;
+            return uzzons;
 
         } else if (iniciado.getTozte().adicionar_Superarko(1).isIgual(terminado.getTozte())) {
 
             long p1 = Tronarko.HAZDE_DIFERENCA(new Hazde(9, 99, 99), iniciado.getHazde());
             long p2 = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), new Hazde(0, 0, 0));
 
-            return (p1 + p2) ;
+            return (p1 + p2);
 
         } else if (terminado.getTozte().isMaiorQue(iniciado.getTozte().adicionar_Superarko(1))) {
 
@@ -282,7 +282,7 @@ public class Tronarko {
             long p1 = Tronarko.HAZDE_DIFERENCA(new Hazde(9, 99, 99), iniciado.getHazde());
             long p2 = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), new Hazde(0, 0, 0));
 
-            return (t*10 * 100*100) + (p1 + p2) ;
+            return (t * 10 * 100 * 100) + (p1 + p2);
 
         }
 
@@ -314,8 +314,28 @@ public class Tronarko {
         return megarkos;
     }
 
-    public static int HIZARKO_TAMANHO(){
+    public static int HIZARKO_TAMANHO() {
         return 125;
+    }
+
+    public static Periarkos GET_PERIARKO(int arko) {
+        Periarkos ret = null;
+
+        if (arko >= 0 && arko <= 1) {
+            ret = Periarkos.UD;
+        }
+        if (arko >= 2 && arko <= 4) {
+            ret = Periarkos.AD;
+        }
+        if (arko >= 5 && arko <= 7) {
+            ret = Periarkos.ED;
+        }
+        if (arko >= 8 && arko <= 9) {
+            ret = Periarkos.OD;
+        }
+
+        return ret;
+
     }
 
 }
