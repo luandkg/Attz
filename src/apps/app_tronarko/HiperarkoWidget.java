@@ -359,7 +359,7 @@ public class HiperarkoWidget {
                 }
 
                 if (comFundo) {
-                    r.drawRect_Pintado(QX - 1, QY - 2, 25, 20, mCor);
+                    r.drawRect_Pintado(QX - 3, QY - 2, 25, 20, mCor);
                 }
 
                 if (comFundo & anteriorComFundo) {
