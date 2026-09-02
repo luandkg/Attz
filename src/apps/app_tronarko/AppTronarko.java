@@ -83,6 +83,7 @@ public class AppTronarko extends Cena {
 
     private PeriarkoProgresso mPeriarkoProgresso;
     private ModarkoProgresso mModarkoProgresso;
+    private HizarkoProgressoWidget mHizarkoProgressoWidget;
 
     private Lista<EventoLegenda> mEventos;
 
@@ -102,6 +103,7 @@ public class AppTronarko extends Cena {
 
     private Lista<Par<String, Cor>> mPeriarkos;
     private Lista<Par<String, Cor>> mModarkos ;
+    private Lista<Par<String, Cor>> mHizarkos ;
 
     @Override
     public void iniciar(Windows eWindows) {
@@ -128,7 +130,7 @@ public class AppTronarko extends Cena {
 
         mTeclado = eWindows.getTeclado();
 
-        int botaoPosY = 900;
+        int botaoPosY = 850;
 
         int maisX = 300;
 
@@ -176,6 +178,12 @@ public class AppTronarko extends Cena {
 
         mModarkos=Lista.CRIAR(new Par<String, Cor>("OZZ", mCores.getCinza()), new Par<String, Cor>("AZZ", mCores.getLaranja()));
 
+        mHizarkos=Lista.CRIAR();
+        mHizarkos.adicionar(new Par<String, Cor>(Hizarkos.DEGGOVIUM.toString(), mCores.getAmarelo()));
+        mHizarkos.adicionar(new Par<String, Cor>(Hizarkos.HARBARIUM.toString(), mCores.getAzul()));
+        mHizarkos.adicionar(new Par<String, Cor>(Hizarkos.HITTARIUM.toString(), mCores.getVermelho()));
+        mHizarkos.adicionar(new Par<String, Cor>(Hizarkos.NUZTIUM.toString(), mCores.getCinza()));
+
         //ExportarSequenciaLunar.exportar(mHoje, 100, "/home/luan/Imagens/tronarko_luas.png");
         // ExportarSequenciaLunar.exportar(new Tozte(1, 1, 7001), 500, "/home/luan/Imagens/tronarko_luas_iluminacao.png");
         //ExportarSequenciaLunar.exportar(new Tozte(1, 1, 7000), 500, "/home/luan/Imagens/tronarko_luas_escuridao.png");
@@ -212,6 +220,7 @@ public class AppTronarko extends Cena {
 
         mPeriarkoProgresso = new PeriarkoProgresso(POS_TRONARKO_INFO_PX, POS_TRONARKO_INFO_PY, mPeriarkos);
         mModarkoProgresso = new ModarkoProgresso(POS_TRONARKO_INFO_PX, POS_TRONARKO_INFO_PY, mModarkos);
+        mHizarkoProgressoWidget = new HizarkoProgressoWidget(950, 800 + 160,mHizarkos);
 
 
         mRhoBenchmark = new RhoBenchmark("res/libs.RhoBenchmark.dkg", 0, 400);
@@ -297,13 +306,16 @@ public class AppTronarko extends Cena {
         if (mAnimacao >= 20 && mAnimacao <= 50) {
             mPeriarkoProgresso.setIttaVisivel(true);
             mModarkoProgresso.setIttaVisivel(true);
+            mHizarkoProgressoWidget.setSuperarkoVisivel(true);
         } else {
             mPeriarkoProgresso.setIttaVisivel(false);
-            mModarkoProgresso.setIttaVisivel(true);
+            mModarkoProgresso.setIttaVisivel(false);
+            mHizarkoProgressoWidget.setSuperarkoVisivel(false);
         }
 
         mPeriarkoProgresso.update(mAgora);
         mModarkoProgresso.update(mAgora);
+        mHizarkoProgressoWidget.update(mHoje.getHiperarko(),mHoje.getTronarko(),mHoje);
 
         if (mAtualmente == null) {
             mAtualmente = mHoje;
@@ -476,6 +488,8 @@ public class AppTronarko extends Cena {
             mTextoPequeno.escreva(1150, 800 + 80, "Tamanho : " + Tronarko.HIZARKO_TAMANHO());
 
             mTextoPequeno.escreva(950, 800 + 110, "Fluxo : " + hizarko_fluxo(mHoje.Hizarko_Duracao()));
+
+            mHizarkoProgressoWidget.draw(r);
 
         } else if (Strings.isIgual(mVisao, "HAZDE")) {
 
