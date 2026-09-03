@@ -172,11 +172,11 @@ public class AppTronarko extends Cena {
         mTronarkoImagemSignos = new TronarkoImagemSignos();
 
 
-        mPeriarkos = Lista.CRIAR(new Par<String, Cor>("AD", mCores.getLaranja()), new Par<String, Cor>("ED", mCores.getVermelho()));
-        mPeriarkos.adicionar(new Par<String, Cor>("OD", mCores.getCinza()));
-        mPeriarkos.adicionar(new Par<String, Cor>("UD", mCores.getAzul()));
+        mPeriarkos = Lista.CRIAR(new Par<String, Cor>(Periarkos.AD.toString(), mCores.getLaranja()), new Par<String, Cor>(Periarkos.ED.toString(), mCores.getVermelho()));
+        mPeriarkos.adicionar(new Par<String, Cor>(Periarkos.OD.toString(), mCores.getCinza()));
+        mPeriarkos.adicionar(new Par<String, Cor>(Periarkos.UD.toString(), mCores.getAzul()));
 
-        mModarkos=Lista.CRIAR(new Par<String, Cor>("OZZ", mCores.getCinza()), new Par<String, Cor>("AZZ", mCores.getLaranja()));
+        mModarkos=Lista.CRIAR(new Par<String, Cor>(Modarkos.OZZ.toString(), mCores.getCinza()), new Par<String, Cor>(Modarkos.AZZ.toString(), mCores.getLaranja()));
 
         mHizarkos=Lista.CRIAR();
         mHizarkos.adicionar(new Par<String, Cor>(Hizarkos.DEGGOVIUM.toString(), mCores.getAmarelo()));
