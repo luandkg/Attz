@@ -48,6 +48,14 @@ public class ENTT {
         return e;
     }
 
+    public static Entidade CRIAR(String nome1, int valor1, String nome2, int valor2, String nome3, String valor3) {
+        Entidade e = new Entidade();
+        e.at(nome1, valor1);
+        e.at(nome2, valor2);
+        e.at(nome3, valor3);
+        return e;
+    }
+
     public static Entidade CRIAR(String nome1, String valor1, String nome2, String valor2, String nome3, String valor3, String nome4, String valor4) {
         Entidade e = new Entidade();
         e.at(nome1, valor1);
@@ -134,6 +142,27 @@ public class ENTT {
         if (!enc) {
             ret = new Entidade();
             ret.at(eNome, eValor);
+            mEntts.adicionar(ret);
+        }
+        return ret;
+    }
+
+    public static Entidade GET_SEMPRE(Lista<Entidade> mEntts, String eNome1, int eValor1, String eNome2, int eValor2) {
+        Entidade ret = null;
+        boolean enc = false;
+
+        for (Entidade e : mEntts) {
+            if (e.atInt(eNome1) == (eValor1) && e.atInt(eNome2) == (eValor2)) {
+                ret = e;
+                enc = true;
+                break;
+            }
+        }
+
+        if (!enc) {
+            ret = new Entidade();
+            ret.at(eNome1, eValor1);
+            ret.at(eNome2, eValor2);
             mEntts.adicionar(ret);
         }
         return ret;
@@ -689,6 +718,10 @@ public class ENTT {
     }
 
 
+    public static Lista<Entidade> XLSX_FOLHA(Lista<Entidade> dados, String nome) {
+        return ENTT.GET_SEMPRE(dados, "Titulo", nome).getEntidades();
+    }
+
     public static void EXIBIR_TABELA(Lista<Entidade> objetos) {
 
         Lista<Entidade> colunas = new Lista<Entidade>();
@@ -1135,6 +1168,28 @@ public class ENTT {
         return entts;
     }
 
+    public static Lista<Entidade> ORDENAR_COM_ORDENADOR(Lista<Entidade> entts, String campo,Ordenavel<String> ordenavel) {
+
+
+        int n = entts.getQuantidade();
+        Entidade temp = null;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+
+                if ( ordenavel.emOrdem(  entts.get(j - 1).at(campo) , entts.get(j).at(campo)) == Ordenavel.MAIOR) {
+                    temp = entts.get(j - 1);
+                    entts.set(j - 1, entts.get(j));
+                    entts.set(j, temp);
+
+                }
+
+            }
+        }
+
+        return entts;
+    }
+
     public static Lista<Entidade> ORDENAR_INTEIRO_DECRESCENTE(Lista<Entidade> entts, String campo) {
 
 
@@ -1533,6 +1588,21 @@ public class ENTT {
         return dispersao;
     }
 
+    public static Lista<Entidade> DISPERSAO_SOMATORIO(Lista<Entidade> entts, String atributo, String atributoSomatorio) {
+
+        Lista<Entidade> dispersao = CRIAR_LISTA();
+
+        for (String valor : FILTRAR_UNICOS(entts, atributo)) {
+
+            Entidade e = GET_SEMPRE(dispersao, atributo, valor);
+            Lista<Entidade> subdados = COLETAR(entts, atributo, valor);
+
+            e.at("Quantidade", ATRIBUTO_SOMAR(subdados, atributoSomatorio));
+        }
+
+        return dispersao;
+    }
+
 
     public static void DEFINIR(Lista<Entidade> entts, String att_nome, String att_valor) {
         for (Entidade e : entts) {
@@ -1747,7 +1817,7 @@ public class ENTT {
             linha_tracos += turma.atInt("Tamanho") + 5 + 2;
         }
 
-        linha_tracos+=1;
+        linha_tracos += 1;
 
         fmt.print("{}", fmt.repetir("-", linha_tracos));
 
@@ -1764,18 +1834,30 @@ public class ENTT {
             for (Entidade cab : cabs) {
                 primeira += "| " + fmt.espacar_depois(turma.at(cab.at("Nome")), cab.atInt("Tamanho") + 5);
             }
-            primeira+= "|";
+            primeira += "|";
             break;
         }
 
-        int tt = (primeira.length()-tabela_nome.length())-4;
-        int tt_metade = tt/2;
+        int tt = (primeira.length() - tabela_nome.length()) - 4;
+        int tt_metade = tt / 2;
 
-        titulo_tracos_metade_esquerda=tt_metade;
-        titulo_tracos_metade_direita=tt_metade;
+        titulo_tracos_metade_esquerda = tt_metade;
+        titulo_tracos_metade_direita = tt_metade;
 
+        int falta = 0;
+        int cabec = 2 + titulo_tracos_metade_esquerda + tabela_nome.length() + titulo_tracos_metade_direita + 2;
 
-        String   frase_cab = "| " + fmt.repetir(" ", titulo_tracos_metade_esquerda) + tabela_nome + fmt.repetir(" ", titulo_tracos_metade_direita) + " |";
+        if (cabec < linha_tracos) {
+            falta = linha_tracos - cabec;
+        }
+
+        titulo_tracos_metade_direita += falta;
+
+        String frase_cab = "| " + fmt.repetir(" ", titulo_tracos_metade_esquerda) + tabela_nome + fmt.repetir(" ", titulo_tracos_metade_direita) + " |";
+
+        // fmt.print("Total = {}",linha_tracos);
+        // fmt.print("Cabec = {}",frase_cab.length());
+        // fmt.print("Falta = {}",falta);
 
         //  fmt.print(">> {} : {}",frase_cab.length(),primeira.length());
 
@@ -1788,6 +1870,150 @@ public class ENTT {
             String linha = "";
             for (Entidade cab : cabs) {
                 linha += "| " + fmt.espacar_depois(turma.at(cab.at("Nome")), cab.atInt("Tamanho") + 5);
+            }
+            fmt.print("{}", linha + "|");
+        }
+
+        fmt.print("{}", fmt.repetir("-", linha_tracos));
+
+    }
+
+
+    public static void EXIBIR_TABELA_COM_NOME_CENTRALIZAR_DADOS(Lista<Entidade> entidades_lista, String tabela_nome, Lista<String> centralizar) {
+
+
+        String cabecalho = "";
+
+        Lista<Entidade> cabs = new Lista<Entidade>();
+        for (Entidade turma : entidades_lista) {
+            for (Tag att : turma.tags()) {
+
+                Entidade ent = null;
+                String nome = att.getNome();
+                int tam = nome.length();
+
+
+                if (ENTT.EXISTE(cabs, "Nome", nome)) {
+                    ent = ENTT.GET_SEMPRE(cabs, "Nome", nome);
+                } else {
+                    ent = new Entidade();
+                    ent.at("Nome", nome);
+                    ent.at("Tamanho", tam);
+                    cabs.adicionar(ent);
+                }
+
+                int tt = ent.atInt("Tamanho");
+                if (tam > tt) {
+                    ent.at("Tamanho", tam);
+                }
+            }
+        }
+
+        for (Entidade turma : entidades_lista) {
+            for (Entidade cab : cabs) {
+                int valor = turma.at(cab.at("Nome")).length();
+                if (valor > cab.atInt("Tamanho")) {
+                    cab.at("Tamanho", valor);
+                }
+            }
+        }
+
+
+        int linha_tracos = 0;
+
+        for (Entidade turma : cabs) {
+
+            int afastamento = 5;
+            int tam = turma.atInt("Tamanho") + afastamento;
+            if (tam % 2 == 0) {
+                afastamento += 1;
+
+            }
+         //   fmt.print(">> {} - {}", turma.at("Nome"), tam);
+
+
+            if (centralizar.existe(Strings.IGUALAVEL(), turma.at("Nome"))) {
+                cabecalho += "| " + fmt.centralizar(turma.at("Nome"), turma.atInt("Tamanho") + afastamento);
+            } else {
+                cabecalho += "| " + fmt.espacar_depois(turma.at("Nome"), turma.atInt("Tamanho") + afastamento);
+            }
+
+            linha_tracos += turma.atInt("Tamanho") + afastamento + 2;
+        }
+
+        linha_tracos += 1;
+
+        fmt.print("{}", fmt.repetir("-", linha_tracos));
+
+        int titulo_tracos_metade = (linha_tracos - 4 - tabela_nome.length()) / 2;
+
+        int titulo_tracos_metade_esquerda = titulo_tracos_metade;
+        int titulo_tracos_metade_direita = titulo_tracos_metade;
+
+
+        String primeira = "";
+
+        for (Entidade turma : entidades_lista) {
+            primeira = "";
+            for (Entidade cab : cabs) {
+
+                int afastamento = 5;
+                int tam = cab.atInt("Tamanho") + afastamento;
+                if (tam % 2 == 0) {
+                    afastamento += 1;
+
+                }
+
+                primeira += "| " + fmt.espacar_depois(turma.at(cab.at("Nome")), cab.atInt("Tamanho") + afastamento);
+            }
+            primeira += "|";
+            break;
+        }
+
+        int tt = (primeira.length() - tabela_nome.length()) - 4;
+        int tt_metade = tt / 2;
+
+        titulo_tracos_metade_esquerda = tt_metade;
+        titulo_tracos_metade_direita = tt_metade;
+
+        int falta = 0;
+        int cabec = 2 + titulo_tracos_metade_esquerda + tabela_nome.length() + titulo_tracos_metade_direita + 2;
+
+        if (cabec < linha_tracos) {
+            falta = linha_tracos - cabec;
+        }
+
+        titulo_tracos_metade_direita += falta;
+
+        String frase_cab = "| " + fmt.repetir(" ", titulo_tracos_metade_esquerda) + tabela_nome + fmt.repetir(" ", titulo_tracos_metade_direita) + " |";
+
+        // fmt.print("Total = {}",linha_tracos);
+        // fmt.print("Cabec = {}",frase_cab.length());
+        // fmt.print("Falta = {}",falta);
+
+        //  fmt.print(">> {} : {}",frase_cab.length(),primeira.length());
+
+        fmt.print(frase_cab);
+        fmt.print("{}", fmt.repetir("-", linha_tracos));
+        fmt.print(cabecalho + "|");
+        fmt.print("{}", fmt.repetir("-", linha_tracos));
+
+        for (Entidade turma : entidades_lista) {
+            String linha = "";
+            for (Entidade cab : cabs) {
+
+                int afastamento = 5;
+                int tam = cab.atInt("Tamanho") + afastamento;
+                if (tam % 2 == 0) {
+                    afastamento += 1;
+                }
+
+                if (centralizar.existe(Strings.IGUALAVEL(), cab.at("Nome"))) {
+                    linha += "| " + fmt.centralizar(turma.at(cab.at("Nome")), cab.atInt("Tamanho") + afastamento);
+                } else {
+                    linha += "| " + fmt.espacar_depois(turma.at(cab.at("Nome")), cab.atInt("Tamanho") + afastamento);
+                }
+
             }
             fmt.print("{}", linha + "|");
         }
@@ -2904,5 +3130,187 @@ public class ENTT {
         }
         return valores;
     }
+
+    public static void REMOVER_PRIMEIRA_LINHA(Lista<Entidade> dados) {
+        dados.removerIndex(0);
+    }
+
+    public static void REMOVER_ULTIMA_LINHA(Lista<Entidade> dados) {
+        dados.removerIndex(dados.getQuantidade() - 1);
+    }
+
+    public static Lista<Entidade> TITULARIZAR(Lista<Entidade> dados) {
+
+        Lista<Entidade> copia = ENTT.COPIAR(dados);
+
+        Entidade primeiro = GET_PRIMEIRO(copia);
+        REMOVER_PRIMEIRA_LINHA(copia);
+
+        for (Tag tag : primeiro.tags()) {
+            tag.setValor(Strings.RETIRAR_ACENTOS(tag.getValor().toUpperCase()).replace(" ", "_"));
+        }
+
+
+        Lista<Entidade> novos = ENTT.CRIAR_LISTA();
+
+        for (Entidade a : copia) {
+            int ii = 0;
+            for (Tag tag : a.tags()) {
+                tag.setNome(primeiro.tags().get(ii).getValor());
+                ii += 1;
+            }
+            novos.adicionar(a);
+        }
+
+        return novos;
+
+    }
+
+    public static Lista<Entidade> CRUZAMENTO_DISPERSO(Lista<Entidade> dados, String alfaChave, String betaChave, String gamaChave) {
+
+        Lista<String> regionais = ENTT.FILTRAR_UNICOS(dados, alfaChave);
+        Lista<Entidade> cruzamento = ENTT.CRIAR_LISTA();
+
+        Lista<String> gamaTipos = ENTT.FILTRAR_UNICOS(dados, gamaChave);
+
+        for (String tipoAlfa : regionais) {
+            Lista<Entidade> alfaValores = ENTT.COLETAR(dados, alfaChave, tipoAlfa);
+
+            Lista<String> turmas = ENTT.FILTRAR_UNICOS(alfaValores, betaChave);
+
+            for (String turma : turmas) {
+
+                Entidade p = ENTT.CRIAR_EM(cruzamento);
+                p.at(alfaChave, tipoAlfa);
+                p.at(betaChave, turma);
+
+                Lista<Entidade> betaValores = ENTT.COLETAR(alfaValores, betaChave, turma);
+
+                Lista<Entidade> disp = ENTT.DISPERSAO(betaValores, gamaChave);
+
+                String frase = "";
+
+                for (String gamaTipo : gamaTipos) {
+                    String valor = ENTT.GET_SEMPRE(disp, gamaChave, gamaTipo).at("Quantidade");
+                    if (valor.length() == 0) {
+                        valor = "0";
+                    }
+                    frase += " [ " + gamaTipo + " = " + valor + " ] ";
+                }
+
+                p.at("Cruzamento", frase);
+
+                //    ENTT.EXIBIR_TABELA(disp);
+            }
+
+        }
+
+        return cruzamento;
+    }
+
+    public static Lista<Entidade> CRUZAMENTO_SOMATORIO(Lista<Entidade> dados, String alfaChave, String betaChave, String gamaChave, String deltaChave) {
+
+        Lista<String> regionais = ENTT.FILTRAR_UNICOS(dados, alfaChave);
+        Lista<Entidade> cruzamento = ENTT.CRIAR_LISTA();
+
+        Lista<String> gamaTipos = ENTT.FILTRAR_UNICOS(dados, gamaChave);
+
+        for (String tipoAlfa : regionais) {
+            Lista<Entidade> alfaValores = ENTT.COLETAR(dados, alfaChave, tipoAlfa);
+
+            Lista<String> turmas = ENTT.FILTRAR_UNICOS(alfaValores, betaChave);
+
+            for (String turma : turmas) {
+
+                Entidade p = ENTT.CRIAR_EM(cruzamento);
+                p.at(alfaChave, tipoAlfa);
+                p.at(betaChave, turma);
+
+                Lista<Entidade> betaValores = ENTT.COLETAR(alfaValores, betaChave, turma);
+
+                Lista<Entidade> disp = ENTT.DISPERSAO_SOMATORIO(betaValores, gamaChave, deltaChave);
+
+                String frase = "";
+
+                for (String gamaTipo : gamaTipos) {
+                    String valor = ENTT.GET_SEMPRE(disp, gamaChave, gamaTipo).at("Quantidade");
+                    if (valor.length() == 0) {
+                        valor = "0";
+                    }
+                    frase += " [ " + gamaTipo + " = " + fmt.espacar_antes(valor, 5) + " ] ";
+                }
+
+                p.at("Cruzamento", frase);
+
+                //   ENTT.EXIBIR_TABELA(disp);
+            }
+
+        }
+
+        return cruzamento;
+    }
+
+
+    public static Lista<Entidade> DESCOLCHETEAR(Entidade item, String atributoNome, String nomeAlfa, String nomeBeta) {
+        Lista<Entidade> dados = new Lista<Entidade>();
+
+        String valor = item.at(atributoNome);
+
+        for (String i : Strings.GET_ENTRE_COLCHETES_VARIOS(valor)) {
+            Entidade a = new Entidade();
+            a.at(nomeAlfa, Strings.GET_ATE(i, "=").trim());
+            a.at(nomeBeta, Strings.GET_DEPOIS(i, "=").trim());
+            dados.adicionar(a);
+        }
+
+        return dados;
+    }
+
+    public static Lista<Entidade> DESCOLCHETEAR_COMPLEMENTAR(Entidade item, String atributoNome, String nomeAlfa, String nomeBeta) {
+        Lista<Entidade> dados = new Lista<Entidade>();
+
+        String valor = item.at(atributoNome);
+
+        for (String i : Strings.GET_ENTRE_COLCHETES_VARIOS(valor)) {
+            Entidade a = new Entidade();
+
+            for (Tag t : item.tags()) {
+                if (!t.is_nome(atributoNome)) {
+                    a.at(t.getNome(), t.getValor());
+                }
+            }
+
+            a.at(nomeAlfa, Strings.GET_ATE(i, "=").trim());
+            a.at(nomeBeta, Strings.GET_DEPOIS(i, "=").trim());
+            dados.adicionar(a);
+        }
+
+        return dados;
+    }
+
+    public static Lista<Entidade> DESCOLCHETEAR_COMPLEMENTAR(Lista<Entidade> itens, String atributoNome, String nomeAlfa, String nomeBeta) {
+
+        Lista<Entidade> dados = new Lista<Entidade>();
+
+        for (Entidade item : itens) {
+            dados.adicionar_varios(DESCOLCHETEAR_COMPLEMENTAR(item, atributoNome, nomeAlfa, nomeBeta));
+        }
+
+        return dados;
+    }
+
+
+    public static Lista<Entidade> INVERTER(Lista<Entidade> dados) {
+
+        Lista<Entidade> saida = new Lista<Entidade>();
+
+        while (dados.getQuantidade() > 0) {
+            saida.adicionar(ENTT.GET_ULTIMO(dados));
+            ENTT.REMOVER_ULTIMA_LINHA(dados);
+        }
+
+        return saida;
+    }
+
 
 }
