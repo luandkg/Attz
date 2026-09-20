@@ -1,6 +1,7 @@
 package libs.tronarko.utils;
 
 import libs.luan.Lista;
+import libs.luan.Ordenavel;
 import libs.tronarko.agenda.Lembrete;
 import libs.tronarko.Hazde;
 import libs.tronarko.Tozte;
@@ -99,5 +100,41 @@ public class Ordenador {
         return entradas;
     }
 
+
+    public static Ordenavel<Tron> TRON_ORDENADOR() {
+        return new Ordenavel<Tron>() {
+            @Override
+            public int emOrdem(Tron a, Tron b) {
+                int resp = Ordenavel.IGUAL;
+
+                if (a.isMaiorQue(b)) {
+                    resp = Ordenavel.MAIOR;
+                } else if (a.isMenorQue(b)) {
+                    resp = Ordenavel.MENOR;
+                }
+                return resp;
+            }
+        };
+    }
+
+    public static Ordenavel<String> TRON_ORDENADOR_STRING() {
+        return new Ordenavel<String>() {
+            @Override
+            public int emOrdem(String sa, String sb) {
+
+                Tron a = StringTronarko.PARSER_TRON(sa);
+                Tron b = StringTronarko.PARSER_TRON(sb);
+
+                int resp = Ordenavel.IGUAL;
+
+                if (a.isMaiorQue(b)) {
+                    resp = Ordenavel.MAIOR;
+                } else if (a.isMenorQue(b)) {
+                    resp = Ordenavel.MENOR;
+                }
+                return resp;
+            }
+        };
+    }
 
 }
