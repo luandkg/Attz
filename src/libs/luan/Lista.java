@@ -51,7 +51,7 @@ public class Lista<T> implements Iterable<T> {
     }
 
 
-    public Item _INTERNO_PRIMEIRO() {
+    public Item<T> _INTERNO_PRIMEIRO() {
         return mPrimeiro;
     }
 
@@ -73,7 +73,7 @@ public class Lista<T> implements Iterable<T> {
 
         if (adicionando) {
 
-            Item mAdicionar = new Item(eValor);
+            Item<T> mAdicionar = new Item<T>(eValor);
 
             if (mPrimeiro == null) {
 
@@ -198,8 +198,8 @@ public class Lista<T> implements Iterable<T> {
 
         if (mPrimeiro != null) {
 
-            Item mAnterior = null;
-            Item mCorrente = mPrimeiro;
+            Item<T> mAnterior = null;
+            Item<T> mCorrente = mPrimeiro;
             int index_corrente = 0;
 
             while (mCorrente != null) {
@@ -252,7 +252,7 @@ public class Lista<T> implements Iterable<T> {
 
     public void listarSemIndice() {
 
-        Item mCorrente = mPrimeiro;
+        Item<T> mCorrente = mPrimeiro;
 
         while (mCorrente != null) {
             System.out.println(" ->> " + mCorrente.getValor());
@@ -265,7 +265,7 @@ public class Lista<T> implements Iterable<T> {
 
         int indice = 0;
 
-        Item mCorrente = mPrimeiro;
+        Item<T> mCorrente = mPrimeiro;
         while (mCorrente != null) {
 
             System.out.println(" " + indice + " ->> " + mCorrente.getValor());
@@ -330,7 +330,7 @@ public class Lista<T> implements Iterable<T> {
         if (indice >= 0) {
 
             int indicecontagem = 0;
-            Item mCorrente = mPrimeiro;
+            Item<T> mCorrente = mPrimeiro;
             boolean trocou = false;
 
             while (mCorrente != null) {
@@ -415,7 +415,7 @@ public class Lista<T> implements Iterable<T> {
 
         boolean encontrou = false;
 
-        Item mCorrente = mPrimeiro;
+        Item<T> mCorrente = mPrimeiro;
 
         int mIndice = 0;
 
@@ -431,7 +431,7 @@ public class Lista<T> implements Iterable<T> {
             mCorrente = mCorrente.getProximo();
         }
 
-        if (encontrou == false) {
+        if (!encontrou) {
             throw new IllegalArgumentException("Valor nao encontrado : " + eValor);
         }
 
@@ -442,7 +442,7 @@ public class Lista<T> implements Iterable<T> {
 
         boolean retorno = false;
 
-        Item mCorrente = mPrimeiro;
+        Item<T> mCorrente = mPrimeiro;
         while (mCorrente != null) {
             if (mCorrente.getValor() == eValor) {
                 retorno = true;
@@ -474,7 +474,7 @@ public class Lista<T> implements Iterable<T> {
         int retorno = 0;
 
 
-        Item mCorrente = mPrimeiro;
+        Item<T> mCorrente = mPrimeiro;
 
         while (mCorrente != null) {
             if (mCorrente.getValor() == eValor) {
@@ -559,7 +559,7 @@ public class Lista<T> implements Iterable<T> {
 
 
     public Iterator<T> iterator() {
-        return new IteradorDaLista(this);
+        return new IteradorDaLista<T>(this);
     }
 
     public static class IteradorDaLista<T> implements Iterator<T> {
@@ -701,7 +701,7 @@ public class Lista<T> implements Iterable<T> {
 
     public void adicionar_como_primeiro(T eObjeto) {
 
-        Item novo_primeiro = new Item(eObjeto);
+        Item<T> novo_primeiro = new Item<T>(eObjeto);
         novo_primeiro.mProximo = mPrimeiro;
 
         mPrimeiro = novo_primeiro;
@@ -726,8 +726,8 @@ public class Lista<T> implements Iterable<T> {
 
         if (mPrimeiro != null) {
 
-            Item mAnterior = null;
-            Item mCorrente = mPrimeiro;
+            Item<T> mAnterior = null;
+            Item<T> mCorrente = mPrimeiro;
 
             while (mCorrente != null) {
 
