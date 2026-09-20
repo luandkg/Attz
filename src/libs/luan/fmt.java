@@ -202,6 +202,10 @@ public class fmt {
         System.out.println(format(texto, args));
     }
 
+    public static void printSemLinha(String texto, Object ...args) {
+        System.out.print(format(texto, args));
+    }
+
 
 
 
