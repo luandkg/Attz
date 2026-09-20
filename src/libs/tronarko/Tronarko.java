@@ -260,6 +260,155 @@ public class Tronarko {
         return s_diferenca;
     }
 
+
+
+    public static String TRON_DIFERENCA_ITTAS(Tron iniciado, Tron terminado) {
+
+        String s_diferenca = "";
+
+        if (iniciado.getTozte().isIgual(terminado.getTozte())) {
+
+            long uzzons = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), iniciado.getHazde());
+
+            if(uzzons>=100){
+                long ittas = uzzons/100;
+                s_diferenca = ittas + " ittas";
+            }else{
+                s_diferenca = uzzons + " uz";
+            }
+
+
+        } else if (iniciado.getTozte().adicionar_Superarko(1).isIgual(terminado.getTozte())) {
+
+            long p1 = Tronarko.HAZDE_DIFERENCA(new Hazde(9, 99, 99), iniciado.getHazde());
+            long p2 = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), new Hazde(0, 0, 0));
+
+            long uzzons = (p1 + p2);
+
+            if(uzzons>=100){
+                long ittas = uzzons/100;
+                s_diferenca = ittas + " ittas";
+            }else{
+                s_diferenca = uzzons + " uz";
+            }
+
+
+        } else if (terminado.getTozte().isMaiorQue(iniciado.getTozte().adicionar_Superarko(1))) {
+
+            long t = Tronarko.SUPERARKOS_ENTRE_COM(iniciado.getTozte(), terminado.getTozte());
+
+            long p1 = Tronarko.HAZDE_DIFERENCA(new Hazde(9, 99, 99), iniciado.getHazde());
+            long p2 = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), new Hazde(0, 0, 0));
+
+            long uzzons = (p1 + p2);
+
+            if(uzzons>=100){
+                long ittas = uzzons/100;
+                s_diferenca = t + " tz " + ittas + " ittas";
+            }else{
+                s_diferenca = t + " tz " + uzzons + " uz";
+            }
+
+
+        }
+
+        return s_diferenca;
+    }
+
+    public static String TRON_DIFERENCA_ARKOS_E_ITTAS(Tron iniciado, Tron terminado) {
+
+        String s_diferenca = "";
+
+        if (iniciado.getTozte().isIgual(terminado.getTozte())) {
+
+            long uzzons = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), iniciado.getHazde());
+
+            if(uzzons>=100){
+                long ittas = uzzons/100;
+
+                if(ittas>=100){
+                    long arkos = ittas / 100;
+                    ittas = ittas - (arkos*100);
+
+                    if(arkos==1){
+                        s_diferenca = arkos + " arko " + ittas + " ittas";
+                    }else{
+                        s_diferenca = arkos + " arkos " + ittas + " ittas";
+                    }
+
+                }else{
+                    s_diferenca = ittas + " ittas";
+                }
+
+            }else{
+                s_diferenca = uzzons + " uz";
+            }
+
+
+        } else if (iniciado.getTozte().adicionar_Superarko(1).isIgual(terminado.getTozte())) {
+
+            long p1 = Tronarko.HAZDE_DIFERENCA(new Hazde(9, 99, 99), iniciado.getHazde());
+            long p2 = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), new Hazde(0, 0, 0));
+
+            long uzzons = (p1 + p2);
+
+            if(uzzons>=100){
+                long ittas = uzzons/100;
+                if(ittas>=100){
+                    long arkos = ittas / 100;
+                    ittas = ittas - (arkos*100);
+
+                    if(arkos==1){
+                        s_diferenca = arkos + " arko " + ittas + " ittas";
+                    }else{
+                        s_diferenca = arkos + " arkos " + ittas + " ittas";
+                    }
+
+                }else{
+                    s_diferenca = ittas + " ittas";
+                }
+            }else{
+                s_diferenca = uzzons + " uz";
+            }
+
+
+        } else if (terminado.getTozte().isMaiorQue(iniciado.getTozte().adicionar_Superarko(1))) {
+
+            long t = Tronarko.SUPERARKOS_ENTRE_COM(iniciado.getTozte(), terminado.getTozte());
+
+            long p1 = Tronarko.HAZDE_DIFERENCA(new Hazde(9, 99, 99), iniciado.getHazde());
+            long p2 = Tronarko.HAZDE_DIFERENCA(terminado.getHazde(), new Hazde(0, 0, 0));
+
+            long uzzons = (p1 + p2);
+
+            if(uzzons>=100){
+                long ittas = uzzons/100;
+
+                if(ittas>=100){
+                    long arkos = ittas / 100;
+                    ittas = ittas - (arkos*100);
+
+                    if(arkos==1){
+                        s_diferenca =t + " tz " +  arkos + " arko " + ittas + " ittas";
+                    }else{
+                        s_diferenca =t + " tz " +  arkos + " arkos " + ittas + " ittas";
+                    }
+
+                }else{
+                    s_diferenca =t + " tz " +  ittas + " ittas";
+                }
+
+            }else{
+                s_diferenca = t + " tz " + uzzons + " uz";
+            }
+
+
+        }
+
+        return s_diferenca;
+    }
+
+
     public static long TRON_DIFERENCA_VALOR(Tron iniciado, Tron terminado) {
 
 
