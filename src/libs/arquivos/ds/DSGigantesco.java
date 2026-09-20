@@ -4,7 +4,6 @@ import libs.arquivos.TX;
 import libs.arquivos.binario.Arquivador;
 import libs.arquivos.binario.Inteiro;
 import libs.luan.Lista;
-import libs.luan.fmt;
 
 public class DSGigantesco {
 
@@ -32,6 +31,21 @@ public class DSGigantesco {
 
     }
 
+    public void pular(int eQuantidade){
+
+        final int TAXA_DE_PULOS = 100;
+
+        while(eQuantidade>TAXA_DE_PULOS){
+            eQuantidade-=TAXA_DE_PULOS;
+            getItens(TAXA_DE_PULOS);
+        }
+
+        if(eQuantidade>0){
+            getItens(eQuantidade);
+        }
+
+    }
+
     public  Lista<DSItem> getItens(int eQuantidadeBuscar ) {
 
         Lista<DSItem> itens = new Lista<DSItem>();
@@ -47,13 +61,14 @@ public class DSGigantesco {
             int b2 = Inteiro.byteToInt(arquivar.get());
         }
 
+        mPonteiroLendo=arquivar.getPonteiro();
 
         //  System.out.println("B1 :: " + b1);
         // System.out.println("B2 :: " + b2);
 
         int status = Inteiro.byteToInt(arquivar.get());
 
-        fmt.print("Onde :: {} -->> {}",mPonteiroLendo,status);
+       // fmt.print("Onde :: {} -->> {}",mPonteiroLendo,status);
 
         long t = arquivar.getLength();
 
@@ -73,18 +88,19 @@ public class DSGigantesco {
 
             long ponteiro_dados = arquivar.getPonteiro();
 
+           // fmt.print("\t ++ Item :: {} -- {} ->> TAM = {}",itens.getQuantidade(),ponteiro_dados,item_tamanho);
+
             itens.adicionar(new DSItem(mArquivo, index, status, nome, item_tamanho, ponteiro_dados));
 
             arquivar.setPonteiro(arquivar.getPonteiro() + item_tamanho);
-            mPonteiroLendo=arquivar.getPonteiro() + item_tamanho-1;
+            mPonteiroLendo=arquivar.getPonteiro() ;
+            status = Inteiro.byteToInt(arquivar.get());
 
-            fmt.print("\t Ah :: {}",mPonteiroLendo);
+           // fmt.print("\t Ah :: {} -- {}",itens.getQuantidade(),mPonteiroLendo);
 
             if(itens.getQuantidade()>=eQuantidadeBuscar){
                 break;
             }
-
-            status = Inteiro.byteToInt(arquivar.get());
 
             index += 1;
 
