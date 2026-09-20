@@ -186,6 +186,7 @@ public class TesteZettaTabela {
         pessoas.exibir_dados();
         // pessoas.exibir_contar_por("Status");
         pessoas.exibir_contar_por("Autenticado");
+        pessoas.exibir_contar_por("Status");
 
 
         Lista<Entidade> idade_zonas = ENTT.ZONA_ANALISAR_EM_DISPERSAO_4ZONAS(pessoas.getItens(), "Idade");
