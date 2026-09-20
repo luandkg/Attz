@@ -23,7 +23,7 @@ public class XLSX {
         Lista<DocumentoTexto> documentos = new Lista<DocumentoTexto>();
         ArrayList<DocumentoTexto> planilhas_titulos = new ArrayList<DocumentoTexto>();
 
-        documentos = Zipper.EXTRAIR_DOCUMENTOS_COM_EXTENSAO(eArquivo,".xml");
+        documentos = Zipper.EXTRAIR_DOCUMENTOS_COM_EXTENSAO(eArquivo, ".xml");
 
         for (DocumentoTexto doc : documentos) {
 //            System.out.println(doc.getNome() + " :: " + doc.getConteudo().length());
@@ -36,15 +36,15 @@ public class XLSX {
             }
         });
 
-        Opcional<DocumentoTexto> doc_sharedStrings = documentos_procurador.procure("xl/sharedStrings.xml",documentos);
-        Opcional<DocumentoTexto> doc_workbook = documentos_procurador.procure("xl/workbook.xml",documentos);
+        Opcional<DocumentoTexto> doc_sharedStrings = documentos_procurador.procure("xl/sharedStrings.xml", documentos);
+        Opcional<DocumentoTexto> doc_workbook = documentos_procurador.procure("xl/workbook.xml", documentos);
 
-        if(doc_sharedStrings.isOK()){
+        if (doc_sharedStrings.isOK()) {
 
             //  System.out.println("SHARED STRINGS");
             // System.out.println(doc.getConteudo());
 
-            XML xml =XML.PARSER_XML(doc_sharedStrings.get().getConteudo());
+            XML xml = XML.PARSER_XML(doc_sharedStrings.get().getConteudo());
             // xml.exibir();
 
             for (XMLObjeto obj : xml.getObjeto("sst").getObjetos()) {
@@ -53,12 +53,12 @@ public class XLSX {
 
         }
 
-        if(doc_workbook.isOK()) {
+        if (doc_workbook.isOK()) {
 
             //   System.out.println("WORK BOOK");
             //  System.out.println(doc.getConteudo());
 
-            XML xml =  XML.PARSER_XML(doc_workbook.get().getConteudo());
+            XML xml = XML.PARSER_XML(doc_workbook.get().getConteudo());
             //      xml.exibir();
 
             int id = 0;
@@ -69,8 +69,6 @@ public class XLSX {
             }
 
         }
-
-
 
 
         int planilha_id = 0;
@@ -99,11 +97,40 @@ public class XLSX {
                 int linha_corrente = 1;
                 for (XMLObjeto obj : xml.getObjeto("worksheet").getObjeto("sheetData").getObjetos()) {
 
-                    mSharedStrings.adicionar(obj.getObjeto("t").getConteudo());
-
                     PlanilhaLinha linha = new PlanilhaLinha();
 
+                   // fmt.print(">> nova linha ");
+                  //  obj.exibir();
+
+                    boolean primeiro = true;
+
                     for (XMLObjeto coluna : obj.getObjetos()) {
+                       // fmt.print("\t ++ ");
+                      //  coluna.exibir();
+
+                        if (primeiro) {
+
+                            String valor_r = coluna.atributo("r").getValor();
+                            if (valor_r.length() > 0) {
+                                String primeira = String.valueOf(valor_r.charAt(0)).toUpperCase();
+                               // fmt.print("\t ++ PRIMEIRA :: {}",primeira);
+
+                                if(Strings.isDiferente(primeira,"A")){
+
+                                    int posicao = Strings.GET_POSICAO("ABCDEFGHIJKLMNOPQRSTUVWXYZ",primeira);
+                                    int pi = 0;
+                                    while(pi<posicao){
+                                        linha.adicionar("");
+                                        pi+=1;
+                                    }
+
+                                }
+
+                            }
+
+                            primeiro = false;
+                        }
+
 
                         String tipo = coluna.atributo("t").getValor();
                         String valor = coluna.getObjeto("v").getConteudo();
@@ -113,6 +140,7 @@ public class XLSX {
                         } else {
                             linha.adicionar(valor);
                         }
+
 
                     }
 
@@ -136,11 +164,11 @@ public class XLSX {
         }
     }
 
-    public void exibir() {
+    public void exibirTudo() {
 
         for (Planilha planilha : mPlanilhas) {
 
-           fmt.print("$$ Planilha :: " + planilha.getTitulo() + " ( " + planilha.maxLinhas() + " :: " + planilha.maxColunas() + " )");
+            fmt.print("$$ Planilha :: " + planilha.getTitulo() + " ( " + planilha.maxLinhas() + " :: " + planilha.maxColunas() + " )");
 
             for (PlanilhaLinha linha : planilha.getLinhas()) {
                 fmt.print(linha.getString());
@@ -150,7 +178,15 @@ public class XLSX {
 
     }
 
-    public Lista<Planilha> getPlanilhas(){
+    public void exibirNomes() {
+
+        for (Planilha planilha : mPlanilhas) {
+            fmt.print("$$ Planilha :: " + planilha.getTitulo() + " ( " + planilha.maxLinhas() + " :: " + planilha.maxColunas() + " ) -- " + planilha.getLinhas().getQuantidade());
+        }
+
+    }
+
+    public Lista<Planilha> getPlanilhas() {
         return mPlanilhas;
     }
 
