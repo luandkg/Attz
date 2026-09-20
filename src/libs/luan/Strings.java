@@ -1046,6 +1046,21 @@ public class Strings {
         return s;
     }
 
+
+    public static int GET_POSICAO(String frase, String letra) {
+        int pos = 0;
+
+        while(pos<frase.length()){
+            String item = String.valueOf(frase.charAt(pos));
+            if(Strings.isIgual(item,letra)){
+                return pos;
+            }
+            pos+=1;
+        }
+
+        return pos;
+    }
+
     public static String PRIMEIRO(ArrayList<String> itens) {
         return itens.get(0);
     }
@@ -1053,6 +1068,7 @@ public class Strings {
     public static String ULTIMO(ArrayList<String> itens) {
         return itens.get(itens.size() - 1);
     }
+
 
     public static int GET_POSICAO(ArrayList<String> itens, String proc) {
         int pos = 0;
@@ -1065,6 +1081,19 @@ public class Strings {
         }
         return pos;
     }
+
+    public static int GET_POSICAO(Lista<String> itens, String proc) {
+        int pos = 0;
+
+        for (String item : itens) {
+            if (item.contentEquals(proc)) {
+                break;
+            }
+            pos += 1;
+        }
+        return pos;
+    }
+
 
     public static String GET_ATE_ESPACO(String texto) {
 
@@ -2176,6 +2205,44 @@ public class Strings {
                 }
             } else {
                 if (l.contentEquals("\"")) {
+                    dentro = true;
+                    aspas = "";
+                }
+            }
+
+            i += 1;
+        }
+
+        if (aspas.length() > 0) {
+            ls.adicionar(aspas);
+        }
+
+        return ls;
+    }
+
+    public static Lista<String> GET_ENTRE_COLCHETES_VARIOS(String txt) {
+        int i = 0;
+        int o = txt.length();
+
+        boolean dentro = false;
+        String aspas = "";
+
+        Lista<String> ls = new Lista<String>();
+
+        while (i < o) {
+            String l = String.valueOf(txt.charAt(i));
+            if (dentro) {
+                if (l.contentEquals("]")) {
+                    if (aspas.length() > 0) {
+                        ls.adicionar(aspas);
+                    }
+                    dentro = false;
+                    aspas = "";
+                } else {
+                    aspas += l;
+                }
+            } else {
+                if (l.contentEquals("[")) {
                     dentro = true;
                     aspas = "";
                 }
