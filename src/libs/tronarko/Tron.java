@@ -372,7 +372,7 @@ public class Tron {
         return resposta;
     }
 
-    public boolean isMenorrQue(Tron Outro) {
+    public boolean isMenorQue(Tron Outro) {
         boolean resposta = false;
         if (this.getTotal() < Outro.getTotal()) {
             resposta = true;
@@ -437,7 +437,7 @@ public class Tron {
 
                 if (a.isMaiorQue(b)) {
                     resp = Ordenavel.MAIOR;
-                } else if (a.isMenorrQue(b)) {
+                } else if (a.isMenorQue(b)) {
                     resp = Ordenavel.MENOR;
                 }
 
