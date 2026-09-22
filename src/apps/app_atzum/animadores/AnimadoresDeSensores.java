@@ -13,6 +13,7 @@ import libs.azzal.utilitarios.Cor;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.imagem.Efeitos;
+import libs.luan.FS;
 import libs.luan.Lista;
 import libs.luan.fmt;
 
@@ -24,6 +25,7 @@ public class AnimadoresDeSensores {
 
         fmt.print(">> Ver dados sensores !");
 
+        FS.organizar_pasta(PASTA_TRONARKO_VALORES);
 
         String arquivo_sensores_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
 

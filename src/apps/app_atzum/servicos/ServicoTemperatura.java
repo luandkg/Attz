@@ -493,6 +493,7 @@ public class ServicoTemperatura {
 
         }
 
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura"));
 
         Imagem.exportar(render_zonas.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura/atzum_temperatura_" + modelagem + "_v1.png"));
 
@@ -551,6 +552,7 @@ public class ServicoTemperatura {
         FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-15, 10, COR_FRIO));
         FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-30, -15, COR_MUITO_FRIO));
 
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura"));
 
         Renderizador temperatura_zonas = Renderizador.ABRIR_DE_ARQUIVO_RGB(AtzumCreator.LOCAL_GET_ARQUIVO("build/temperatura/atzum_temperatura_" + modelagem + "_v2.png"));
 
@@ -595,18 +597,18 @@ public class ServicoTemperatura {
 
                     int altitude = dados_relevo.getValor(ponto.getX(), ponto.getY());
 
-                    if(altitude>0){
+                    if (altitude > 0) {
 
                         while (altitude > 100) {
                             altitude -= 100;
-                            valor_proximo-=1;
+                            valor_proximo -= 1;
                         }
 
-                    }else if(altitude<0){
+                    } else if (altitude < 0) {
 
                         while (altitude < -100) {
                             altitude += 100;
-                            valor_proximo+=1;
+                            valor_proximo += 1;
                         }
 
                     }
@@ -905,7 +907,7 @@ public class ServicoTemperatura {
         double faixa = 100.0 / (ex_temperatura.getMaior() - ex_temperatura.getMenor());
 
         Renderizador render_distancia = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
-        Renderizador render_temperatura_zonas= Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
+        Renderizador render_temperatura_zonas = Renderizador.construir(mapa_planeta.getLargura(), mapa_planeta.getAltura(), mCores.getPreto());
 
         Cor COR_MUITO_QUENTE = Cor.getHexCor("#BF360C");
         Cor COR_QUENTE = Cor.getHexCor("#FB8C00");
@@ -922,7 +924,6 @@ public class ServicoTemperatura {
         FAIXAS_DE_TEMPERATURA.adicionar(new IntervaloDeValorColorido(-30, -15, COR_MUITO_FRIO));
 
 
-
         for (int y = 0; y < mapa_planeta.getAltura(); y++) {
             for (int x = 0; x < mapa_planeta.getLargura(); x++) {
                 if (mapa_planeta.isTerra(x, y)) {
@@ -933,22 +934,22 @@ public class ServicoTemperatura {
 
                     Cor cor_temp = mCores.getBranco();
 
-                    for(IntervaloDeValorColorido temp_zona : FAIXAS_DE_TEMPERATURA){
-                        if(valor>=temp_zona.getMinimo() && valor<=temp_zona.getMaximo()){
-                            cor_temp=temp_zona.getCor();
+                    for (IntervaloDeValorColorido temp_zona : FAIXAS_DE_TEMPERATURA) {
+                        if (valor >= temp_zona.getMinimo() && valor <= temp_zona.getMaximo()) {
+                            cor_temp = temp_zona.getCor();
                             break;
                         }
                     }
 
-                    if(valor>FAIXAS_DE_TEMPERATURA.get(0).getMaximo()){
-                        cor_temp=FAIXAS_DE_TEMPERATURA.get(0).getCor();
+                    if (valor > FAIXAS_DE_TEMPERATURA.get(0).getMaximo()) {
+                        cor_temp = FAIXAS_DE_TEMPERATURA.get(0).getCor();
                     }
 
-                    if(valor<FAIXAS_DE_TEMPERATURA.get(FAIXAS_DE_TEMPERATURA.getQuantidade()-1).getMinimo()){
-                        cor_temp=FAIXAS_DE_TEMPERATURA.get(FAIXAS_DE_TEMPERATURA.getQuantidade()-1).getCor();
+                    if (valor < FAIXAS_DE_TEMPERATURA.get(FAIXAS_DE_TEMPERATURA.getQuantidade() - 1).getMinimo()) {
+                        cor_temp = FAIXAS_DE_TEMPERATURA.get(FAIXAS_DE_TEMPERATURA.getQuantidade() - 1).getCor();
                     }
 
-                    render_temperatura_zonas.setPixel(x, y,cor_temp);
+                    render_temperatura_zonas.setPixel(x, y, cor_temp);
 
 
                 }

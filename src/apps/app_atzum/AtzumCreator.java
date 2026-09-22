@@ -14,6 +14,7 @@ import libs.azzal.utilitarios.Cor;
 import libs.azzal.utilitarios.HSV;
 import libs.fs.PastaFS;
 import libs.imagem.Imagem;
+import libs.luan.FS;
 import libs.luan.Lista;
 
 import java.awt.image.BufferedImage;
@@ -21,10 +22,17 @@ import java.awt.image.BufferedImage;
 public class AtzumCreator {
 
 
-    private static String LOCAL_PROCESSANDO = Atzum.GET_LOCAL() + "build/processando/";
-    private static String LOCAL_DADOS = Atzum.GET_LOCAL() + "dados/";
-    private static String LOCAL_VIDEOS = Atzum.GET_LOCAL() + "videos/";
-    private static String LOCAL_LOGS = Atzum.GET_LOCAL() + "logs/";
+    public static final String LOCAL_PROCESSANDO = Atzum.GET_LOCAL() + "build/processando/";
+    public static final String LOCAL_DADOS = Atzum.GET_LOCAL() + "dados/";
+    public static final String LOCAL_VIDEOS = Atzum.GET_LOCAL() + "videos/";
+    public static final String LOCAL_LOGS = Atzum.GET_LOCAL() + "logs/";
+
+    public static void ORGANIZAR(){
+        FS.organizar_pasta(LOCAL_PROCESSANDO);
+        FS.organizar_pasta(LOCAL_DADOS);
+        FS.organizar_pasta(LOCAL_VIDEOS);
+        FS.organizar_pasta(LOCAL_LOGS);
+    }
 
     public static String LOCAL_GET_ARQUIVO(String nome) {
         return new PastaFS(Atzum.GET_LOCAL()).getArquivo(nome);

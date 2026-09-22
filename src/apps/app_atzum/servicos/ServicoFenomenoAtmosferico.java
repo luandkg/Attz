@@ -14,10 +14,7 @@ import libs.azzal.utilitarios.Cor;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.imagem.Imagem;
-import libs.luan.Aleatorio;
-import libs.luan.Lista;
-import libs.luan.Matematica;
-import libs.luan.fmt;
+import libs.luan.*;
 import libs.tronarko.Hazde;
 import libs.tronarko.Tron;
 import libs.tronarko.utils.StringTronarko;
@@ -94,6 +91,8 @@ public class ServicoFenomenoAtmosferico {
 
 
     public static void ZERAR() {
+
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/fenomenos"));
 
         Lista<Entidade> dados_furacoes = new Lista<Entidade>();
 

@@ -65,6 +65,8 @@ public class AtzumCentralDados {
 
         ENTT.AT_ALTERAR_NOME(tronarko_cidades_distancia_oceanica,"Cidade","CidadePos");
 
+        FS.organizar_pasta( AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo"));
+
         ENTT.GUARDAR(tronarko_cidades_distancia_oceanica, AtzumCreator.LOCAL_GET_ARQUIVO("build/tempo/tronarko_cidades_distancia_oceanica.entts"));
 
         ENTT.EXIBIR_TABELA(ENTT.SLICE_PRIMEIROS(tronarko_cidades_distancia_oceanica,10));

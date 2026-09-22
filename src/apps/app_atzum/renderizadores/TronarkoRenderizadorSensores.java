@@ -12,6 +12,7 @@ import libs.azzal.utilitarios.Cor;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.imagem.Imagem;
+import libs.luan.FS;
 import libs.luan.Lista;
 import libs.luan.fmt;
 
@@ -81,6 +82,7 @@ public class TronarkoRenderizadorSensores {
 
             }
 
+            FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_valores"));
 
             Imagem.exportar(render.toImagemSemAlfa(), PASTA_TRONARKO_VALORES + modelo + ".png");
 
@@ -96,6 +98,7 @@ public class TronarkoRenderizadorSensores {
         Lista<IntervaloDeValorColorido> FAIXAS_DE_UMIDADE = Atzum.GET_UMIDADE_INTERVALOS_COLORIDOS();
 
 
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko"));
 
         String arquivo_sensores_por_superarko = AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_sensores_por_superarko.ds");
 
@@ -148,6 +151,7 @@ public class TronarkoRenderizadorSensores {
 
             }
 
+            FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_valores"));
 
             Imagem.exportar(render.toImagemSemAlfa(), PASTA_TRONARKO_VALORES + modelo + ".png");
 
@@ -217,6 +221,7 @@ public class TronarkoRenderizadorSensores {
 
             }
 
+            FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_valores"));
 
             Imagem.exportar(render.toImagemSemAlfa(), PASTA_TRONARKO_VALORES + modelo + ".png");
 
@@ -285,6 +290,7 @@ public class TronarkoRenderizadorSensores {
 
             }
 
+            FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko/tronarko_valores"));
 
             Imagem.exportar(render.toImagemSemAlfa(), PASTA_TRONARKO_VALORES + modelo + ".png");
 

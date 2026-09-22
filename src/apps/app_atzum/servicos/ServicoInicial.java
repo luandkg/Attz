@@ -5,6 +5,7 @@ import apps.app_atzum.utils.AtzumCriativoLog;
 import libs.azzal.Cores;
 import libs.azzal.Renderizador;
 import libs.imagem.Imagem;
+import libs.luan.FS;
 import libs.luan.fmt;
 
 import java.awt.image.BufferedImage;
@@ -31,6 +32,8 @@ public class ServicoInicial {
 
         AtzumCreator.NORMALIZAR_2_CORES_ABAIXO_DE(mapa_planeta, 100, mCores.getVermelho(), mCores.getPreto());
 
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build"));
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/planeta"));
 
         Imagem.exportar(mapa_planeta.toImagemSemAlfa(),AtzumCreator.LOCAL_GET_ARQUIVO("build/planeta/atzum_planeta.png"));
 

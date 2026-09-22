@@ -5,12 +5,10 @@ import apps.app_atzum.processo_criativo.AtzumAlfaCriativo;
 import apps.app_atzum.processo_criativo.AtzumBetaCriativo;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
-import libs.luan.Aleatorio;
-import libs.luan.Lista;
-import libs.luan.Strings;
-import libs.luan.fmt;
+import libs.luan.*;
 import libs.tronarko.Tron;
 import libs.tronarko.Tronarko;
+import libs.tronarko.utils.Ordenador;
 import libs.tronarko.utils.StringTronarko;
 import libs.zetta.features.ZQC;
 
@@ -27,6 +25,8 @@ public class AtzumProcessoCriativoEmTarefas {
     public static void INIT(int quantidade_de_passos) {
 
 
+        AtzumCreator.ORGANIZAR();
+
         String execucao_corrente = Tronarko.getTozte().getTextoInversoZerado_UnderLine().replace("_", "") + Tronarko.getHazde().getTextoZerado().replace(":", "") + ":::" + fmt.zerado(Aleatorio.aleatorio(1000), 6);
 
         int passo = 1;
@@ -35,7 +35,10 @@ public class AtzumProcessoCriativoEmTarefas {
 
             Tron t1 = Tronarko.getTronAgora();
 
-            AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
+            if(FS.arquivo_existe(AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_LOCAL_ALFA))){
+                AtzumProcessoCriativoEmTarefas.EXIBIR_PROCESSO();
+            }
+
 
             String tronarko_corrente = "";
             String tarefa_corrente = "";
@@ -183,7 +186,15 @@ public class AtzumProcessoCriativoEmTarefas {
     }
 
     public static void ALFA_SUB_EXIBIR_PUBLICACAO(Lista<Entidade> alfa_subtarefas) {
+
+        for(Entidade e : alfa_subtarefas){
+            if(!e.at("Inicio").isEmpty() && !e.at("Fim").isEmpty()){
+                e.at("Tempo","+ "+Tronarko.TRON_DIFERENCA_ITTAS(StringTronarko.PARSER_TRON(e.at("Inicio")),StringTronarko.PARSER_TRON(e.at("Fim"))));
+            }
+        }
+
         ENTT.EXIBIR_TABELA_COM_NOME(alfa_subtarefas, "PROCESSO CRIATIVO ATZUM - ALFA :: SUB");
+
     }
 
 
@@ -257,6 +268,45 @@ public class AtzumProcessoCriativoEmTarefas {
     public static void VER_BANCO(){
 
         ZQC.EXIBIR_COLECAO(AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_PROCESSO_CRIATIVO), "AtzumProcessoCriativo");
+
+        Lista<Entidade> dadosBrutos = ZQC.COLECAO_ENTIDADES(AtzumCreator.LOCAL_GET_ARQUIVO(ARQUIVO_PROCESSO_CRIATIVO), "AtzumProcessoCriativo");
+
+        Lista<Entidade> grupo = ENTT.AGRUPAR_E_ORDENAR(dadosBrutos, "Tronarko");
+
+        int max = 0;
+        Lista<String> tarefasOrdem = Lista.CRIAR();
+
+        for(Entidade g : grupo){
+
+            ENTT.ORDENAR_COM_ORDENADOR(g.getEntidades(),"Iniciado", Ordenador.TRON_ORDENADOR_STRING());
+
+
+            g.at("Iniciado",ENTT.GET_PRIMEIRO(g.getEntidades()).at("Iniciado"));
+            g.at("Terminado",ENTT.GET_ULTIMO(g.getEntidades()).at("Terminado"));
+
+            if(!g.at("Tronarko").isEmpty() && ENTT.EXISTE(g.getEntidades(),"Tarefa","PROXIMO_TRONARKO")){
+                g.at("Status","CONCLUIDO");
+            }else if(!g.at("Tronarko").isEmpty()) {
+                g.at("Status", "EXECUTANDO");
+            }else  if(g.at("Tronarko").isEmpty() && ENTT.EXISTE(g.getEntidades(),"Tarefa","EXPORTAR_ATZUM")){
+                g.at("Status","CONCLUIDO");
+            }
+
+            if(ENTT.GET_ULTIMO(g.getEntidades()).is("Tarefa","PROXIMO_TRONARKO")){
+                max = ENTT.CONTAGEM(g.getEntidades());
+                tarefasOrdem=ENTT.FILTRAR_UNICOS(g.getEntidades(),"Tarefa");
+            }
+
+            g.at("Tarefa",ENTT.GET_ULTIMO(g.getEntidades()).at("Tarefa"));
+            g.at("Etapa",  Strings.GET_POSICAO(tarefasOrdem,g.at("Tarefa"))+1 + " de " + max);
+
+            g.at("Tempo",Tronarko.TRON_DIFERENCA_ARKOS_E_ITTAS(StringTronarko.PARSER_TRON(g.at("Iniciado")),StringTronarko.PARSER_TRON(g.at("Terminado"))));
+
+            ENTT.EXIBIR_TABELA(g.getEntidades());
+        }
+
+
+        ENTT.EXIBIR_TABELA_COM_NOME(grupo,"Por Tronarko");
 
     }
 }

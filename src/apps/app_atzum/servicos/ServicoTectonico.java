@@ -105,6 +105,7 @@ public class ServicoTectonico {
 
         }
 
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico"));
 
         Imagem.exportar(render_tronarko.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_eixos.png"));
 
@@ -142,6 +143,8 @@ public class ServicoTectonico {
 
 
             Rasterizador.RASTERIZAR_COM(render_tronarko_placas_tectonicas_limites, placa_tectonica.getChave().getX(), placa_tectonica.getChave().getY(), mCores.getPreto(), placa_tectonica.getValor(), durante_mudanca, a_cada_100);
+
+            FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico"));
 
             Imagem.exportar(render_tronarko_placas_tectonicas_limites.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/tectonico/atzum_tectonismo_placas_v0.png"));
 

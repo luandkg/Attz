@@ -82,6 +82,8 @@ public class ServicoTronarko {
         fmt.print("\t++ Menor Temperatura : {}", ex_temperatura.getMenor());
 
 
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko"));
+
         String arquivo_processando_temperatura = "build/tronarko/temperatura_t" + modelagem + ".qtt";
         QTT.alocar(AtzumCreator.LOCAL_GET_ARQUIVO(arquivo_processando_temperatura), mapa_planeta.getLargura(), mapa_planeta.getAltura());
         QTT.alterar_todos(AtzumCreator.LOCAL_GET_ARQUIVO(arquivo_processando_temperatura), mapa_planeta.getLargura(), mapa_planeta.getAltura(), -1);
@@ -417,7 +419,11 @@ public class ServicoTronarko {
         Opcional<QTT> variacao_inferior = Opcional.CANCEL();
         Opcional<QTT> variacao_superior = Opcional.CANCEL();
 
+        FS.organizar_pasta(AtzumCreator.LOCAL_DADOS);
+
         if (usar_transicao) {
+            fmt.print("Usar Transicao :: {} ",usar_transicao);
+
             variacao_inferior = Opcional.OK(QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("variacao_inferior.qtt")));
             variacao_superior = Opcional.OK(QTT.getTudo(AtzumCreator.DADOS_GET_ARQUIVO("variacao_superior.qtt")));
         }

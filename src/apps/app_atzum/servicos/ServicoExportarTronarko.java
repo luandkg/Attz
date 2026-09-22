@@ -41,6 +41,8 @@ public class ServicoExportarTronarko {
 
     public static void EXPORTAR_ATZUM() {
 
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos"));
+
         String arquivo_atzum = AtzumCreator.LOCAL_GET_ARQUIVO("tronarkos/atzum.ds");
 
         DS.limpar(arquivo_atzum);
@@ -332,6 +334,9 @@ public class ServicoExportarTronarko {
     }
 
     public static void EXPORTAR_INFOGRAFICOS() {
+
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/tronarko"));
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("comparativos"));
 
         String tronarko_corrente = AtzumProcessoCriativoEmTarefas.GET_BETA_TRONARKO();
 

@@ -84,6 +84,7 @@ public class ServicoMassasDeAr {
                 render_percurso.drawLinha(pt_inicio.getX(), pt_inicio.getY(), pt_anterior.getX(), pt_anterior.getY(), mCores.getVermelho());
             }
 
+            FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/massas_de_ar"));
 
             Imagem.exportar(render_percurso.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/massas_de_ar/massa_" + massa_corrente.getChave() + "_percurso.png"));
 

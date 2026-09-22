@@ -83,10 +83,7 @@ public class ServicoRegioes {
 
              //   Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.PROCESSANDO_GET_ARQUIVO("processando_" + fmt.zerado(processante.get(), 4) + ".png"));
                 processante.set(processante.get() + 1);
-
-                BufferedImage miniatura = Efeitos.reduzir(render.toImagemSemAlfa(), render.getLargura() / 2, render.getAltura() / 2);
-                vic_empilhador.empurrarQuadro(miniatura);
-
+                vic_empilhador.empurrarQuadro(Efeitos.reduzirMetade(render.toImagemSemAlfa()));
 
             }
         };
@@ -101,6 +98,7 @@ public class ServicoRegioes {
             Rasterizador.RASTERIZAR_COM(render, regiao.getX(), regiao.getY(), mCores.getPreto(), regiao.getCor(), durante_mudanca, a_cada_100);
         }
 
+        FS.organizar_pasta(AtzumCreator.LOCAL_GET_ARQUIVO("build/regioes"));
 
         Imagem.exportar(render.toImagemSemAlfa(), AtzumCreator.LOCAL_GET_ARQUIVO("build/regioes/regioes_v1.png"));
 
