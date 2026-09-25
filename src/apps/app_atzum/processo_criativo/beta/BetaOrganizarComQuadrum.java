@@ -1,0 +1,28 @@
+package apps.app_atzum.processo_criativo.beta;
+
+import apps.app_atzum.AtzumProcessoCriativoMarcador;
+import apps.app_atzum.servicos.ServicoTronarko;
+import libs.entt.Entidade;
+import libs.luan.Lista;
+import libs.meta_functional.Acao;
+
+public class BetaOrganizarComQuadrum {
+
+    public static Acao fazer(Entidade e_tronarko, Lista<Entidade> beta_tarefas){
+        return new Acao() {
+            @Override
+            public void fazer() {
+
+                String ATIVIDADE_CORRENTE = "SENSORES_ORGANIZAR_POR_SENSORES_COM_QUADRUM";
+
+                AtzumProcessoCriativoMarcador.MARQUE_INICIO(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
+                ServicoTronarko.SENSORES_ORGANIZAR_POR_SENSORES_COM_QUADRUM();
+                ServicoTronarko.EXIBIR_TRONARKO();
+                AtzumProcessoCriativoMarcador.MARQUE_FIM(e_tronarko.getEntidades(), ATIVIDADE_CORRENTE);
+                AtzumProcessoCriativoMarcador.MARQUE_DURACAO(e_tronarko, ATIVIDADE_CORRENTE);
+
+            }
+        };
+    }
+
+}

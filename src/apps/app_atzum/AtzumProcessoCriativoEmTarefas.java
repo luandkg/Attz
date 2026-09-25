@@ -1,8 +1,7 @@
 package apps.app_atzum;
 
 import apps.app.AgendadorDeTarefas;
-import apps.app_atzum.processo_criativo.AtzumAlfaCriativo;
-import apps.app_atzum.processo_criativo.AtzumBetaCriativo;
+import apps.app_atzum.processo_criativo.AtzumTarefas;
 import libs.entt.ENTT;
 import libs.entt.Entidade;
 import libs.luan.*;
@@ -96,7 +95,7 @@ public class AtzumProcessoCriativoEmTarefas {
 
         AgendadorDeTarefas tarefas = new AgendadorDeTarefas();
 
-        AtzumAlfaCriativo.CRIAR_TAREFAS(tarefas, alfa_tarefas, alfa_subtarefas, e_tronarko, e_sub_atividade);
+        AtzumTarefas.ALFA_CRIAR_TAREFAS(tarefas, alfa_tarefas, alfa_subtarefas, e_tronarko, e_sub_atividade);
 
 
         tarefas.setTarefaCorrente(tarefa);
@@ -134,7 +133,7 @@ public class AtzumProcessoCriativoEmTarefas {
 
         AgendadorDeTarefas tarefas = new AgendadorDeTarefas();
 
-        AtzumBetaCriativo.CRIAR_TAREFAS(tarefas, beta_tarefas, e_atividade, e_tronarko, tronarko);
+        AtzumTarefas.BETA_CRIAR_TAREFAS(tarefas, beta_tarefas, e_atividade, e_tronarko, tronarko);
 
 
         tarefas.setTarefaCorrente(tarefa);
